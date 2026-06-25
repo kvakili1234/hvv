@@ -12,7 +12,7 @@ MANI = json.load(open(os.path.join(ROOT,"scrape/img_manifest.json")))
 FAQ = json.load(open(os.path.join(ROOT,"scrape/faq.json")))
 
 SITE = "https://kvakili1234.github.io/hvv"
-ASSET_VER = "6"  # bump to bust phone/browser cache when CSS/JS change
+ASSET_VER = "7"  # bump to bust phone/browser cache when CSS/JS change
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
 ADDR="2170 W State Road 434, Ste 190, Longwood, FL 32779"
 PORTAL="https://health.healow.com/hvv"
@@ -137,7 +137,7 @@ def head(title, desc, base, canonical, og_img="img/family.jpg", schema=""):
 <link rel="icon" type="image/png" href="{base}logo.png"/>
 <link rel="apple-touch-icon" href="{base}logo.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{base}assets/site.css?v={ASSET_VER}"/>
 {schema}
 </head>
@@ -415,11 +415,18 @@ def reviews_carousel(base):
 # ---------------- HOME ----------------
 def build_home():
     base=""
-    # Dr. Vakili's REAL LinkedIn posts (activity IDs scraped from his live site) — embedded, not paraphrased
-    LI_POSTS=["7396940650752987136","7396424270551265281","7395717728776495105"]
+    # Dr. Vakili's real LinkedIn post topics -> clean static cards (reliable; link to his profile)
+    li_link=LINKEDIN+"recent-activity/all/"
+    LI_POSTS=[("Jun 2026","RNA Splicing & Cardiovascular Disease"),
+              ("Mar 2026","2026 ACC/AHA Dyslipidemia Guideline"),
+              ("Feb 2026","Anticoagulation After Afib Ablation")]
+    li_in="<svg viewBox='0 0 24 24' fill='#0A66C2' stroke='none'><path d='M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8h4V24h-4zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4 0 4.8 2.6 4.8 6.05V24h-4v-7.2c0-1.7 0-3.9-2.4-3.9s-2.7 1.86-2.7 3.78V24H8z'/></svg>"
     li_embeds="".join(
-        f'<div class="li-embed"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:{pid}" height="540" width="100%" frameborder="0" allowfullscreen title="Dr. Vakili LinkedIn post" loading="lazy"></iframe></div>'
-        for pid in LI_POSTS)
+        f'<a class="li-card" href="{li_link}" target="_blank" rel="noopener">'
+        f'<div class="li-tag">{li_in}<span>Insight</span></div>'
+        f'<div class="dt">{dt}</div><h3>{esc(t)}</h3>'
+        f'<span class="rd">Read on LinkedIn <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>'
+        for dt,t in LI_POSTS)
     slides=[
      ("Your Heart, Your Health,","Our Focus","Experience advanced cardiovascular testing and treatment in a private, deeply personal setting — where you always see your physician, Dr. Babak Alex Vakili.","heart.html","Explore Heart Care"),
      ("Your Legs, Your Comfort,","Our Priority","Find relief from vein pain, swelling, and cosmetic concerns with advanced, minimally invasive vein treatments in a calm, private setting.","vein-vascular.html","Explore Vein Care"),
@@ -472,10 +479,10 @@ def build_home():
   <h2 style="font-size:40px;margin:16px 0 8px">Everything we offer, one trusted practice.</h2>
   <p class="lead">From the heart to the veins to the vascular system — complete diagnostics and treatment by a single, board-certified physician who knows your full history.</p></div>
  <div class="pillars">
-  <a class="pillar p1" href="{base}heart.html"><span class="pic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5 4 3.5 7-2.5 4.5-9.5 9-9.5 9z" stroke="#fff"/></svg></span><h3>Heart</h3><p>Diagnostics, imaging &amp; interventional cardiology</p></a>
-  <a class="pillar p2" href="{base}vein-vascular.html"><span class="pic"><svg viewBox="0 0 24 24"><path d="M6 3v6a6 6 0 0 0 12 0V3M9 21c0-4 6-4 6-8" stroke="#fff"/></svg></span><h3>Vein</h3><p>Minimally invasive relief for varicose &amp; spider veins</p></a>
-  <a class="pillar p3" href="{base}vein-vascular.html"><span class="pic"><svg viewBox="0 0 24 24"><path d="M3 12h4l2-7 4 14 2-7h6" stroke="#fff"/></svg></span><h3>Vascular</h3><p>Screening &amp; treatment of circulatory conditions</p></a>
-  <a class="pillar p4" href="{base}about.html"><span class="pic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" stroke="#fff"/><path d="M4 21a8 8 0 0 1 16 0" stroke="#fff"/></svg></span><h3>Dr. Vakili</h3><p>20+ years · former Chief of Cardiology</p></a>
+  <a class="pillar rose" href="{base}heart.html"><span class="pic"><svg viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span><h3>Heart</h3><p>Diagnostics, imaging &amp; interventional cardiology</p><span class="go">Explore<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  <a class="pillar navy" href="{base}vein-vascular.html"><span class="pic"><svg viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C4 11.1 5 13 5 15a7 7 0 0 0 7 7Z"/></svg></span><h3>Vein</h3><p>Minimally invasive relief for varicose &amp; spider veins</p><span class="go">Explore<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  <a class="pillar blue" href="{base}vein-vascular.html"><span class="pic"><svg viewBox="0 0 24 24"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg></span><h3>Vascular</h3><p>Screening &amp; treatment of circulatory conditions</p><span class="go">Explore<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  <a class="pillar ink" href="{base}about.html"><span class="pic"><svg viewBox="0 0 24 24"><path d="M11 2v2M5 2v2M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg></span><h3>Dr. Vakili</h3><p>20+ years · former Chief of Cardiology</p><span class="go">Meet the physician<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
  </div>
 </div></section>
 
