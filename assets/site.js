@@ -14,7 +14,7 @@
   /* ---- hero rotating text + images ---- */
   function initHero(){
     var slides = Array.prototype.slice.call(document.querySelectorAll('.hero .slide'));
-    var imgs   = Array.prototype.slice.call(document.querySelectorAll('.hero-imgs img'));
+    var imgs   = Array.prototype.slice.call(document.querySelectorAll('.hero-bg img'));
     var dots   = Array.prototype.slice.call(document.querySelectorAll('.hero-dots button'));
     if(!slides.length) return;
     var i = 0, n = slides.length, timer;

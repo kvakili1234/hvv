@@ -407,8 +407,8 @@ def build_home():
       <p class="sub">{esc(sub)}</p>
       <div class="hero-cta"><a class="btn" href="{base}book.html">Book an Appointment</a><a class="btn ghost" href="{base}{href}">{esc(btn)}</a></div>
       </div>'''
-    hero_imgs=["img/family.jpg","img/real_legs.jpg","img/active.jpg","drvakili.png"]
-    himg="".join(f'<img class="{"on" if i==0 else ""}" src="{base}{s}" alt="" {"loading=lazy" if i else ""}/>' for i,s in enumerate(hero_imgs))
+    hero_imgs=["img/family.jpg","img/real_legs.jpg","img/active.jpg","img/care.jpg"]
+    himg="".join(f'<img class="{"on" if i==0 else ""}" src="{base}{s}" alt="" {"" if i==0 else "loading=lazy"}/>' for i,s in enumerate(hero_imgs))
 
     # service blocks
     def svc_block(cat_title,tag,intro,items,hub,img,rev=False):
@@ -423,13 +423,15 @@ def build_home():
   </div>'''
 
     body=f'''
-<section class="hero"><div class="hero-in">
- <div class="slides">{sl_html}<div class="hero-dots">{''.join(f'<button class="{"on" if i==0 else ""}" aria-label="Slide {i+1}"></button>' for i in range(len(slides)))}</div></div>
- <div class="hero-figure"><div class="hero-imgs">{himg}</div>
-  <div class="float-card tl"><div class="n">20+</div><div><small>Years caring for<br>Central Florida</small></div></div>
-  <div class="float-card br"><span class="stars">★★★★★</span><b>&ldquo;He truly cares.&rdquo;</b><small>— verified patient review</small></div>
- </div>
-</div></section>
+<section class="hero">
+ <div class="hero-bg">{himg}</div>
+ <div class="hero-scrim"></div>
+ <div class="hero-in"><div class="hero-content">
+  <div class="slides">{sl_html}</div>
+  <div class="hero-dots">{''.join(f'<button class="{"on" if i==0 else ""}" aria-label="Slide {i+1}"></button>' for i in range(len(slides)))}</div>
+ </div></div>
+ <div class="hero-badge"><span class="num">5.0</span><div><span class="stars">★★★★★</span><small><span class="g">Google</span> · {len(REVIEWS)} verified reviews</small></div></div>
+</section>
 
 <div class="trustrip"><div class="wrap">
  <div class="ti"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg></span><div>Board-Certified<small>Interventional cardiology</small></div></div>
