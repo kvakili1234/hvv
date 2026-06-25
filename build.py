@@ -3,6 +3,7 @@
 """Static-site generator for Heart Vein & Vascular. Emits home + all sub-pages
 from scraped real content (scrape/content.json, scrape/reviews.json)."""
 import json, os, re, html as _h
+from PIL import Image
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DATA = json.load(open(os.path.join(ROOT,"scrape/content.json")))
@@ -143,7 +144,7 @@ def head(title, desc, base, canonical, og_img="img/family.jpg", schema=""):
 <div class="demo">DEMO REDESIGN · for review</div>'''
 
 def navlist(items, base, prefix="p/"):
-    return "".join(f'<a href="{base}{prefix}{s}.html">{esc(t)}</a>' for t,s in items)
+    return "".join(f'<a href="{base}{prefix}{s}.html">{esc(t)}</a>' for t,s in sorted(items, key=lambda x:x[0].lower()))
 
 def topbar(base):
     return f'''<div class="topbar"><div class="wrap">
@@ -220,34 +221,68 @@ def footer(base):
 def page(title,desc,base,canonical,bodyhtml,og_img="img/family.jpg",schema=""):
     return head(title,desc,base,canonical,og_img,schema)+topbar(base)+nav(base)+bodyhtml+footer(base)
 
+# ---- readability helpers: de-shout ALLCAPS, format LABEL: lines, split run-on headings ----
+ACRO={"INR","ABP","CVI","AAA","CCTA","PET","CT","ABI","HVV","FAQ","IV","DVT","EKG","ECG","US",
+      "ESES","VNUS","FL","NYU","C3","FACC","FSCAI","CPI","MD","HDL","LDL","PT","PTT","ABPM","AAAS"}
+def _smartword(w):
+    core=re.sub(r'[^A-Za-z0-9]','',w)
+    if core.upper() in ACRO: return w  # keep acronyms as-is
+    return w.title() if w.isupper() else w
+def _shouty(s):
+    L=[c for c in s if c.isalpha()]
+    return bool(L) and sum(c.isupper() for c in L)/len(L) >= 0.7
+def deshout(s):
+    return " ".join(_smartword(w) for w in s.split()) if _shouty(s) else s
+def deshout_words(s):  # always normalise per-word (for headings) — fixes mixed "RISKS / SIDE EFFECTS of X"
+    small={"of","the","and","or","to","in","a","an","for","with","on","at"}
+    out=[]
+    for i,w in enumerate(s.split()):
+        sw=_smartword(w)
+        if i>0 and sw.lower() in small and w.isupper(): sw=sw.lower()
+        out.append(sw)
+    return " ".join(out)
+def fmt_inline(t):
+    # "LABEL: description" -> bold (de-shouted) label + description
+    m=re.match(r'^([A-Z][A-Z0-9 /&\-]{2,}?):\s+(\S.*)$', t)
+    if m:
+        return f"<b>{esc(deshout_words(m.group(1)))}:</b> {esc(deshout_words(m.group(2)))}"
+    return esc(deshout_words(t))  # word-level: only ALLCAPS words change; normal text untouched
+
 # render cleaned content blocks into HTML (paragraphs, lists, sub-headings, callouts)
 def render_content(slug, base, skip_heads=None, skip_imgs=True):
     skip_heads = skip_heads or set()
+    skipset={h.strip().rstrip(":. ").lower() for h in skip_heads}
     blocks=clean_blocks(slug)
-    parts=[]; ul=[]; first_p=True
+    parts=[]; ul=[]; first_p=[True]
     def flush():
-        nonlocal ul
         if ul:
-            parts.append("<ul>"+"".join(f"<li>{esc(x)}</li>" for x in ul)+"</ul>"); ul=[]
+            parts.append("<ul>"+"".join(f"<li>{fmt_inline(x)}</li>" for x in ul)+"</ul>"); ul.clear()
     for b in blocks:
-        t=b.get("text","")
+        t=b.get("text","").strip()
+        if not t: continue
         if b["type"]=="img":
             continue  # images handled separately as figure
         if b["type"]=="heading":
-            if t.strip().rstrip(":.") in {h.rstrip(":.") for h in skip_heads}: continue
-            flush(); parts.append(f"<h2>{esc(t)}</h2>")
+            if t.rstrip(":. ").lower() in skipset: continue
+            flush(); parts.append(f"<h2>{esc(deshout_words(t))}</h2>")
         elif b["type"]=="li":
             ul.append(t)
-        else: # p
-            if t in skip_heads: continue
-            if re.match(r'(?i)^\s*click\s+here', t): continue  # drop dangling "Click HERE" link artifacts
-            flush()
-            # turn bullet-ish lines into list
-            cls=' class="lede"' if first_p else ''
-            # split lines that contain bullet chars
-            if t.strip().startswith(("•","-")) :
-                ul.append(t.strip("•- ").strip()); continue
-            parts.append(f"<p{cls}>{esc(t)}</p>"); first_p=False
+        else: # paragraph — may contain a run-on ALLCAPS heading glued to a sentence
+            if t.rstrip(":. ").lower() in skipset: continue
+            if re.match(r'(?i)^\s*click\s+here', t): continue
+            # split glue like "SCLEROTHERAPYThe most..." -> two segments
+            segs=[s for s in re.sub(r'([A-Z]{2,})([A-Z][a-z])', r'\1\n\2', t).split("\n") if s.strip()]
+            for seg in segs:
+                seg=seg.strip()
+                words=seg.split()
+                if seg.startswith(("•","·","-")):
+                    ul.append(seg.lstrip("•·- ").strip()); continue
+                # short colon line, or short shouty phrase -> subheading
+                if (seg.endswith(":") and len(words)<=6) or (_shouty(seg) and len(words)<=8):
+                    flush(); parts.append(f"<h3>{esc(deshout_words(seg.rstrip(': ')))}</h3>"); continue
+                flush()
+                cls=' class="lede"' if first_p[0] else ''
+                parts.append(f"<p{cls}>{fmt_inline(seg)}</p>"); first_p[0]=False
     flush()
     return "\n".join(parts)
 
@@ -501,7 +536,7 @@ def hub_intro(slug):
 
 def cardgrid(items, base):
     cells=[]
-    for t,s in items:
+    for t,s in sorted(items, key=lambda x:x[0].lower()):
         img=page_img(s) or "img/care.jpg"
         cells.append(f'''<a class="pcard" href="{base}p/{s}.html"><div class="ph"><img src="{base}{img}" alt="{esc(t)}" loading="lazy"/></div>
    <div class="pb"><h3>{esc(t)}</h3><p>{esc(teaser(s))}</p><span class="more">Learn more <span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></div></a>''')
@@ -568,8 +603,17 @@ def build_procedure(slug):
     TITLE_FIX={"vein-faq":"Frequently Asked Questions","ultrasound-imaging":"Chronic Venous Insufficiency (CVI) Ultrasound"}
     title_full=TITLE_FIX.get(slug, DATA[slug]["h1"] or disp)
     desc=DATA[slug].get("meta_desc") or teaser(slug,150)
-    img=page_img(slug)
-    fig=f'<div class="proc-figure"><img src="{base}{img}" alt="{esc(disp)}"/></div>' if img else ""
+    # tiny/poor source photos replaced with high-res stock (never Dr. Vakili photos)
+    IMG_OVERRIDE={"heart-disease-overview":"img/heart.jpg"}
+    img=IMG_OVERRIDE.get(slug) or page_img(slug)
+    fig=""
+    if img:
+        try: iw,ih=Image.open(os.path.join(ROOT,img)).size
+        except Exception: iw,ih=9999,9999
+        if iw>=760:  # high-res → full-width banner
+            fig=f'<div class="proc-figure"><img src="{base}{img}" alt="{esc(disp)}" loading="lazy"/></div>'
+        else:        # low-res diagram → show at native size, framed (no upscaling = no blur)
+            fig=f'<div class="proc-figure inset" style="max-width:{min(iw,460)}px"><img src="{base}{img}" alt="{esc(disp)}" loading="lazy"/></div>'
     if slug=="vein-faq":
         items="".join(f'<details class="faq"><summary>{esc(q["q"])}</summary><div class="fa">{esc(q["a"])}</div></details>' for q in FAQ)
         content=f'<p class="lede">Answers to the questions our vein &amp; vascular patients ask most. Don&rsquo;t see yours? <a href="{base}contact.html" style="color:var(--rose);font-weight:600">Reach our office</a>.</p><div class="faqlist" style="margin-top:24px">{items}</div>'
