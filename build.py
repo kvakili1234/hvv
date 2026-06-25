@@ -12,6 +12,7 @@ MANI = json.load(open(os.path.join(ROOT,"scrape/img_manifest.json")))
 FAQ = json.load(open(os.path.join(ROOT,"scrape/faq.json")))
 
 SITE = "https://kvakili1234.github.io/hvv"
+ASSET_VER = "6"  # bump to bust phone/browser cache when CSS/JS change
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
 ADDR="2170 W State Road 434, Ste 190, Longwood, FL 32779"
 PORTAL="https://health.healow.com/hvv"
@@ -132,12 +133,12 @@ def head(title, desc, base, canonical, og_img="img/family.jpg", schema=""):
 <meta name="twitter:title" content="{esc(title)}"/>
 <meta name="twitter:description" content="{esc(desc)}"/>
 <meta name="twitter:image" content="{SITE}/{og_img}"/>
-<meta name="theme-color" content="#ED2D5D"/>
+<meta name="theme-color" content="#C7264C"/>
 <link rel="icon" type="image/png" href="{base}logo.png"/>
 <link rel="apple-touch-icon" href="{base}logo.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{base}assets/site.css"/>
+<link rel="stylesheet" href="{base}assets/site.css?v={ASSET_VER}"/>
 {schema}
 </head>
 <body>
@@ -215,7 +216,7 @@ def footer(base):
 </footer>
 <div class="mcall"><a class="call" href="tel:+1{PHONE.replace('-','')}"><svg style="width:17px;height:17px" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 3.1 2 2 0 0 1 4.1 1h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Call</a>
 <a class="book" href="{base}book.html">Book Appointment</a></div>
-<script src="{base}assets/site.js"></script>
+<script src="{base}assets/site.js?v={ASSET_VER}"></script>
 </body></html>'''
 
 def page(title,desc,base,canonical,bodyhtml,og_img="img/family.jpg",schema=""):
@@ -273,6 +274,8 @@ def parse_steps_para(text):
 def render_content(slug, base, skip_heads=None, skip_imgs=True):
     skip_heads = skip_heads or set()
     skipset={h.strip().rstrip(":. ").lower() for h in skip_heads}
+    strip_contact = bool(skip_heads)  # bio/simple pages: drop redundant contact/hours fragments (shown in sidebar)
+    CONTACT_RE = re.compile(r'(?i)^\s*(office|phone|fax|address|email|mobile|tel|hours?)\b\s*[:#]')
     blocks=clean_blocks(slug)
     parts=[]; ul=[]; steps=[]; first_p=[True]
     def flush_ul():
@@ -293,9 +296,11 @@ def render_content(slug, base, skip_heads=None, skip_imgs=True):
             if t.rstrip(":. ").lower() in skipset: continue
             flush(); parts.append(f"<h2>{esc(deshout_words(t))}</h2>")
         elif b["type"]=="li":
+            if strip_contact and CONTACT_RE.match(t): continue
             flush_steps(); ul.append(t)
         else: # paragraph
             if t.rstrip(":. ").lower() in skipset: continue
+            if strip_contact and CONTACT_RE.match(t): continue
             if re.match(r'(?i)^\s*click\s+here', t): continue
             if re.match(r'^\d{1,2}\.\s', t):  # numbered instruction list
                 flush_ul(); steps.extend(parse_steps_para(t)); continue
@@ -402,7 +407,7 @@ def build_home():
     sl_html=""
     for i,(a,b,sub,href,btn) in enumerate(slides):
         on=" on" if i==0 else ""
-        sl_html+=f'''<div class="slide{on}"><span class="eyebrow">Heart · Vein · Vascular — Longwood, FL</span>
+        sl_html+=f'''<div class="slide{on}"><span class="eyebrow">Heart · Vein · Vascular</span>
       <h1>{esc(a)}<br><span class="accent">{esc(b)}</span></h1>
       <p class="sub">{esc(sub)}</p>
       <div class="hero-cta"><a class="btn" href="{base}book.html">Book an Appointment</a><a class="btn ghost" href="{base}{href}">{esc(btn)}</a></div>
@@ -470,7 +475,7 @@ def build_home():
  <div class="center" style="max-width:560px;margin:0 auto 30px"><span class="eyebrow" style="justify-content:center">Comprehensive Care</span>
   <h2 style="font-size:38px;margin:16px 0">Three specialties, one physician.</h2></div>
  {svc_block("Heart &amp; Cardiology","Heart","Advanced cardiovascular diagnostics, monitoring and interventional treatment — from prevention to life-saving intervention.",HEART[:8],"heart.html","img/cardio.jpg")}
- {svc_block("Vein Care","Vein","Comfortable, minimally invasive relief from varicose &amp; spider veins, leg swelling and venous disease — so your legs look and feel their best.",VEIN[:8],"vein-vascular.html",page_img("sclerotherapy") or "img/real_legs.jpg",rev=True)}
+ {svc_block("Vein Care","Vein","Comfortable, minimally invasive relief from varicose &amp; spider veins, leg swelling and venous disease — so your legs look and feel their best.",VEIN[:8],"vein-vascular.html","img/real_legs.jpg",rev=True)}
  {svc_block("Vascular &amp; Diagnostics","Vascular","Comprehensive screening, diagnosis &amp; treatment of circulatory and vascular conditions — identifying and managing problems early.",VASC,"vein-vascular.html","img/vascular-art.jpg")}
 </div></section>
 
