@@ -8,6 +8,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 DATA = json.load(open(os.path.join(ROOT,"scrape/content.json")))
 REVIEWS = json.load(open(os.path.join(ROOT,"scrape/reviews.json")))
 MANI = json.load(open(os.path.join(ROOT,"scrape/img_manifest.json")))
+FAQ = json.load(open(os.path.join(ROOT,"scrape/faq.json")))
 
 SITE = "https://kvakili1234.github.io/hvv"
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
@@ -17,7 +18,7 @@ LINKEDIN="https://www.linkedin.com/in/babak-alex-vakili-md-facc-fscai-cpi-198b75
 # form delivery (no backend; activates after first email is confirmed by office)
 FORM_ACTION="https://formsubmit.co/ajax/" + EMAIL
 
-def esc(s): return _h.escape(s or "", quote=True)
+def esc(s): return _h.escape(_h.unescape(s or ""), quote=True)  # unescape first → no double-encoding of source entities
 def local_img(url):
     if not url: return ""
     key=re.sub(r'-\d+x\d+(?=\.)','',url)
@@ -301,6 +302,11 @@ def reviews_carousel(base):
   <span class="eyebrow" style="justify-content:center">Patient Stories</span>
   <h2 style="font-size:40px;margin:16px 0 8px">Loved by Central Florida families.</h2>
   <p class="lead">Real words from patients who&rsquo;ve trusted Dr. Vakili — many for 15, 20 years and more.</p>
+  <div style="display:inline-flex;align-items:center;gap:12px;margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:50px;padding:10px 22px;box-shadow:var(--sh-sm)">
+   <span style="font-family:'Fraunces';font-size:26px;font-weight:600;color:var(--ink)">5.0</span>
+   <span style="color:#F5A623;letter-spacing:1px;font-size:16px">★★★★★</span>
+   <span style="color:var(--muted);font-size:14px">·&nbsp; <b style="color:#4285F4">Google</b> verified · {len(REVIEWS)} reviews</span>
+  </div>
  </div>
  <div class="rev-wrap"><div class="rev-track" id="revTrack">{''.join(cards)}</div>
   <div class="rev-nav">
@@ -465,7 +471,7 @@ def home_schema():
     revs=[]
     for r in REVIEWS[:6]:
         revs.append('{"@type":"Review","author":{"@type":"Person","name":%s},"reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5"},"reviewBody":%s}'
-            %(json.dumps(r["name"]), json.dumps(re.sub(r'\s+',' ',r["text"])[:300])))
+            %(json.dumps(_h.unescape(r["name"])), json.dumps(_h.unescape(re.sub(r'\s+',' ',r["text"])[:300]))))
     data='''{"@context":"https://schema.org","@type":["MedicalClinic","MedicalBusiness"],
 "name":"Heart Vein & Vascular","url":"%s/","telephone":"+1-407-990-1921",
 "image":"%s/img/family.jpg","priceRange":"$$","email":"%s",
@@ -557,11 +563,17 @@ def build_procedure(slug):
     base="../"
     cat,disp=PROC_CAT.get(slug,("heart",DATA[slug]["h1"]))
     cat_label, hub = CAT[cat]
-    title_full=DATA[slug]["h1"] or disp
+    TITLE_FIX={"vein-faq":"Frequently Asked Questions","ultrasound-imaging":"Chronic Venous Insufficiency (CVI) Ultrasound"}
+    title_full=TITLE_FIX.get(slug, DATA[slug]["h1"] or disp)
     desc=DATA[slug].get("meta_desc") or teaser(slug,150)
     img=page_img(slug)
     fig=f'<div class="proc-figure"><img src="{base}{img}" alt="{esc(disp)}"/></div>' if img else ""
-    content=render_content(slug, base)
+    if slug=="vein-faq":
+        items="".join(f'<details class="faq"><summary>{esc(q["q"])}</summary><div class="fa">{esc(q["a"])}</div></details>' for q in FAQ)
+        content=f'<p class="lede">Answers to the questions our vein &amp; vascular patients ask most. Don&rsquo;t see yours? <a href="{base}contact.html" style="color:var(--rose);font-weight:600">Reach our office</a>.</p><div class="faqlist" style="margin-top:24px">{items}</div>'
+        fig=""
+    else:
+        content=render_content(slug, base)
     # pull a preparation/risk callout if present
     canonical=f"p/{slug}.html"
     body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <a href="{base}{hub}">{esc(cat_label)}</a> › <span>{esc(disp)}</span></div>
@@ -576,8 +588,12 @@ def build_procedure(slug):
   <div class="hours"><b>Office Hours</b><br>Mon–Fri 8:00 AM – 4:30 PM<br>Sat &amp; Sun: Closed<br><br><b>Address</b><br>2170 W State Road 434, Ste 190<br>Longwood, FL 32779</div></div></aside>
 </div></div></section>
 <section class="section soft related"><div class="wrap"><h2>Related {esc(cat_label.split(" ")[0])} services</h2><p class="lead center" style="margin-bottom:34px">More ways we care for you under one roof.</p>{related_cards(slug, base, cat)}</div></section>'''
+    sch=proc_schema(title_full,desc,canonical,cat_label)
+    if slug=="vein-faq":
+        qa=",".join('{"@type":"Question","name":%s,"acceptedAnswer":{"@type":"Answer","text":%s}}'%(json.dumps(_h.unescape(q["q"])),json.dumps(_h.unescape(q["a"]))) for q in FAQ)
+        sch+='<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[%s]}</script>'%qa
     return page(f"{title_full} | Heart Vein & Vascular, Longwood FL", desc, base, canonical, body,
-        og_img=(img if img else "img/family.jpg"), schema=proc_schema(title_full,desc,canonical,cat_label))
+        og_img=(img if img else "img/family.jpg"), schema=sch)
 
 # ---------------- bio ----------------
 def build_about():
