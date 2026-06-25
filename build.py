@@ -639,6 +639,30 @@ def build_resource(slug, title, desc):
 </div></div></section>'''
     return page(f"{title} | Heart Vein & Vascular", desc, base, f"r/{slug}.html", body)
 
+def build_office():
+    base=""
+    body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <a href="{base}about.html">Dr. Vakili</a> › <span>Office Location</span></div>
+ <span class="tag">Visit Us</span><h1>Our Longwood office.</h1><p class="intro">Conveniently located on West State Road 434 in Longwood, just minutes from greater Orlando — with easy parking and a calm, private setting.</p></div></header>
+<section class="section"><div class="wrap"><div class="c-in">
+ <div>
+  <h2 style="font-size:28px;margin-bottom:6px">Heart Vein &amp; Vascular</h2>
+  <p class="lead" style="margin-bottom:24px">2170 W State Road 434, Suite 190<br>Longwood, FL 32779</p>
+  <div class="checks">
+   <div class="check"><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Easy parking</b> — free surface parking directly outside the suite.</span></div>
+   <div class="check"><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Central location</b> — on SR-434 near Douglas Ave, minutes from I-4 and AdventHealth.</span></div>
+   <div class="check"><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Office hours</b> — Monday through Friday, 8:00 AM – 4:30 PM.</span></div>
+  </div>
+  <div style="display:flex;gap:13px;margin-top:28px;flex-wrap:wrap">
+   <a class="btn" href="https://maps.google.com/maps?q=2170+West+State+Road+434+Suite+190+Longwood+FL+32779" target="_blank" rel="noopener">Get Directions ↗</a>
+   <a class="btn ghost" href="tel:+1{PHONE.replace('-','')}">Call {PHONE}</a>
+  </div>
+ </div>
+ {contact_aside(base)}
+</div></div></section>{cta_band(base)}'''
+    return page("Office Location — Longwood, FL | Heart Vein & Vascular",
+        "Heart Vein & Vascular is located at 2170 W State Road 434, Suite 190, Longwood, FL 32779 — minutes from Orlando, with easy parking. Call (407) 990-1921.",
+        base,"office-location.html",body)
+
 def build_resources_hub():
     base=""
     cells=[]
@@ -703,7 +727,7 @@ def main():
     pages["integrative.html"]=build_integrative_hub()
     pages["about.html"]=build_about()
     pages["hospital-admissions.html"]=build_simple("hospital-admissions","Hospital Admissions","Hospital Admissions","hospital-admissions.html","Hospital admissions and affiliations for Dr. Babak Alex Vakili — Heart Vein & Vascular, Longwood FL.")
-    pages["office-location.html"]=build_simple("office-location","Office Location","Office Location","office-location.html","Heart Vein & Vascular office location — 2170 W State Road 434, Ste 190, Longwood, FL 32779.")
+    pages["office-location.html"]=build_office()
     pages["resources.html"]=build_resources_hub()
     pages["contact.html"]=build_contact()
     pages["book.html"]=build_book()
