@@ -224,7 +224,12 @@ def page(title,desc,base,canonical,bodyhtml,og_img="img/family.jpg",schema=""):
 
 # ---- readability helpers: de-shout ALLCAPS, format LABEL: lines, split run-on headings ----
 ACRO={"INR","ABP","CVI","AAA","CCTA","PET","CT","ABI","HVV","FAQ","IV","DVT","EKG","ECG","US",
-      "ESES","VNUS","FL","NYU","C3","FACC","FSCAI","CPI","MD","HDL","LDL","PT","PTT","ABPM","AAAS"}
+      "ESES","VNUS","FL","NYU","C3","FACC","FSCAI","CPI","MD","HDL","LDL","PT","PTT","ABPM","AAAS",
+      "ICD","ICDS","MRI","CTA","AV","MI","CAD","CHF","BP","EF","VT","VF","SVT","PVC","PAC","TEE","ER"}
+def fix_question(q):
+    q=(q or "").strip()
+    if q.startswith("hat "): q="W"+q  # his-site artifact: dropped leading "W" on one FAQ title
+    return q
 def _smartword(w):
     core=re.sub(r'[^A-Za-z0-9]','',w)
     if core.upper() in ACRO: return w  # keep acronyms as-is
@@ -277,7 +282,18 @@ def render_content(slug, base, skip_heads=None, skip_imgs=True):
     strip_contact = bool(skip_heads)  # bio/simple pages: drop redundant contact/hours fragments (shown in sidebar)
     CONTACT_RE = re.compile(r'(?i)^\s*(office|phone|fax|address|email|mobile|tel|hours?)\b\s*[:#]')
     blocks=clean_blocks(slug)
-    parts=[]; ul=[]; steps=[]; first_p=[True]
+    parts=[]; ul=[]; steps=[]; qa=[]; first_p=[True]
+    def render_lines(lines):
+        out=[]; sub=[]
+        def fl():
+            if sub: out.append("<ul>"+"".join(f"<li>{fmt_inline(x)}</li>" for x in sub)+"</ul>"); sub.clear()
+        for typ,txt in lines:
+            txt=(txt or "").strip()
+            if not txt: continue
+            if typ=="li": sub.append(txt)
+            elif typ=="h": fl(); out.append(f"<h4>{esc(deshout_words(txt))}</h4>")
+            else: fl(); out.append(f"<p>{fmt_inline(txt)}</p>")
+        fl(); return "".join(out)
     def flush_ul():
         if ul: parts.append("<ul>"+"".join(f"<li>{fmt_inline(x)}</li>" for x in ul)+"</ul>"); ul.clear()
     def flush_steps():
@@ -287,11 +303,18 @@ def render_content(slug, base, skip_heads=None, skip_imgs=True):
                 sub_html=("<ul>"+"".join(f"<li>{fmt_sub(s)}</li>" for s in subs)+"</ul>") if subs else ""
                 lis+=f"<li><span class='st'>{esc(deshout_words(title))}</span>{sub_html}</li>"
             parts.append(f"<ol class='proc-steps'>{lis}</ol>"); steps.clear()
-    def flush(): flush_ul(); flush_steps()
+    def flush_qa():
+        if qa:
+            items="".join(f'<details class="faq"><summary>{esc(deshout_words(fix_question(q)))}</summary><div class="fa">{render_lines(ls)}</div></details>' for q,ls in qa)
+            parts.append(f'<div class="faqlist">{items}</div>'); qa.clear()
+    def flush(): flush_ul(); flush_steps(); flush_qa()
     for b in blocks:
+        if b["type"]=="qa":
+            flush_ul(); flush_steps(); qa.append((b.get("q",""), b.get("lines",[]))); continue
         t=b.get("text","").strip()
         if not t: continue
         if b["type"]=="img": continue
+        flush_qa()
         if b["type"]=="heading":
             if t.rstrip(":. ").lower() in skipset: continue
             flush(); parts.append(f"<h2>{esc(deshout_words(t))}</h2>")
@@ -459,15 +482,15 @@ def build_home():
 <section class="section soft"><div class="wrap"><div class="split">
  <div class="imgwrap"><img src="{base}img/care.jpg" alt="Personal, attentive cardiovascular care" loading="lazy"/>
   <div class="badge"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5 4 3.5 7-2.5 4.5-9.5 9-9.5 9z"/></svg></span><div><b>Private Practice</b><small>You see Dr. Vakili — every visit</small></div></div></div>
- <div><span class="eyebrow">Welcome to Heart Vein &amp; Vascular</span>
-  <h2>Hospital-grade medicine,<br>a genuinely personal touch.</h2>
-  <p class="lead">For over two decades, Central Florida families have trusted Dr. Babak Alex Vakili with the care that matters most. As an independent private practice, you&rsquo;re never handed off to a large group — you meet your physician, get answers, and move through every step with clarity.</p>
+ <div><span class="eyebrow">Our Team</span>
+  <h2>Your Cardiologist, Your Advocate,<br>Our Expert.</h2>
+  <p class="lead">Dr. Babak Alex Vakili, is a distinguished interventional cardiologist with additional subspecialty certifications in vascular medicine as well as venous and lymphatic disorders. Dr. Vakili has been in private practice in the Orlando area since 2002 and brings over two decades of unparalleled expertise and dedication to cardiovascular medicine, setting him apart from his peers in the field.</p>
   <div class="checks">
-   <div class="check"><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>You always see your physician</b> — never handed off to a rotating team.</span></div>
-   <div class="check"><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Advanced diagnostics in-office</b> — faster answers in a calm, private setting.</span></div>
-   <div class="check"><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Minimally invasive treatments</b> — often virtually painless, with quick recovery.</span></div>
+   <div class="check"><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Interventional cardiologist</b> — with subspecialty certifications in vascular, venous &amp; lymphatic medicine.</span></div>
+   <div class="check"><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Former Chief of Cardiology</b> — South Seminole Hospital.</span></div>
+   <div class="check"><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Private practice since 2002</b> — over two decades serving the Orlando area.</span></div>
   </div>
-  <a class="btn" style="margin-top:26px" href="{base}book.html">Become a Patient</a></div>
+  <a class="btn" style="margin-top:26px" href="{base}about.html">Meet Dr. Vakili</a></div>
 </div></div></section>
 
 <section class="section"><div class="wrap">

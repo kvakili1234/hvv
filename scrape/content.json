@@ -2336,52 +2336,64 @@
     "text": "Frequently Asked Questions"
    },
    {
-    "type": "heading",
-    "text": "What is the difference between CT angiography and traditional coronary angiography?"
+    "type": "qa",
+    "q": "What is the difference between CT angiography and traditional coronary angiography?",
+    "lines": [
+     [
+      "p",
+      "CT angiography (CTA) is a noninvasive heart-imaging test that can determine the extent of narrowing in the coronary arteries. Traditional invasive coronary angiography, also known as cardiac catheterization, uses a catheter inserted into an artery in the upper thigh and threaded up to the coronary arteries to inject x-ray dye and make two dimensional x-ray movies of the coronary arteries. CTA is a non invasive diagnostic scan that uses x-rays and intravenous x-ray dye to create 3-D images of the coronary arteries on a computer screen."
+     ]
+    ]
    },
    {
-    "type": "p",
-    "text": "CT angiography (CTA) is a noninvasive heart-imaging test that can determine the extent of narrowing in the coronary arteries. Traditional invasive coronary angiography, also known as cardiac catheterization, uses a catheter inserted into an artery in the upper thigh and threaded up to the coronary arteries to inject x-ray dye and make two dimensional x-ray movies of the coronary arteries. CTA is a non invasive diagnostic scan that uses x-rays and intravenous x-ray dye to create 3-D images of the coronary arteries on a computer screen."
+    "type": "qa",
+    "q": "How much radiation do I get from a Calcium Score or Coronary CTA?",
+    "lines": [
+     [
+      "p",
+      "Although CT is an x-ray technique, the amount of x-rays used is minimized by advanced detector and computer technology to achieve the best image quality at the lowest possible radiation dose. The radiation exposure for a calcium score is equivalent to a one-way coast-to-coast airline flight. The exposure for a CTA is less than exposure to a Thalium Stress Test."
+     ]
+    ]
    },
    {
-    "type": "heading",
-    "text": "How much radiation do I get from a Calcium Score or Coronary CTA?"
+    "type": "qa",
+    "q": "How do I prepare for a Calcium Score or Coronary CTA scan?",
+    "lines": [
+     [
+      "p",
+      "Calcium score CT requires no special preparation. For coronary CTA, a recent blood test for kidney function, EKG and responses to a screening form must be obtained prior to scheduling. Patients with kidney malfunction, asthma, diabetes, allergies to x-ray contrast, irregular heart rhythms or a pacemaker or implantable defibrillator will be given further individualized evaluation and special instructions. To obtain high quality images with CTA many individuals require administration of a beta-blocker prior to the test to keep their heart rates under 70 beats per minute."
+     ]
+    ]
    },
    {
-    "type": "p",
-    "text": "Although CT is an x-ray technique, the amount of x-rays used is minimized by advanced detector and computer technology to achieve the best image quality at the lowest possible radiation dose. The radiation exposure for a calcium score is equivalent to a one-way coast-to-coast airline flight. The exposure for a CTA is less than exposure to a Thalium Stress Test."
+    "type": "qa",
+    "q": "What can I expect during the scan?",
+    "lines": [
+     [
+      "p",
+      "During a CT scan, you will be lying on a comfortable couch as it slowly moves through an opening in the examination unit, commonly referred to as the \u2018gantry.\u2019 All you have to do is follow the instructions given by the CT technologist or radiologist. For example, you may be asked to briefly hold your breath or not to move certain regions of your body."
+     ]
+    ]
    },
    {
-    "type": "heading",
-    "text": "How do I prepare for a Calcium Score or Coronary CTA scan?"
+    "type": "qa",
+    "q": "Will I feel anything?",
+    "lines": [
+     [
+      "p",
+      "CT itself is a quick, painless procedure. For CTA, an IV is required for injection of x-ray contrast (dye)."
+     ]
+    ]
    },
    {
-    "type": "p",
-    "text": "Calcium score CT requires no special preparation. For coronary CTA, a recent blood test for kidney function, EKG and responses to a screening form must be obtained prior to scheduling. Patients with kidney malfunction, asthma, diabetes, allergies to x-ray contrast, irregular heart rhythms or a pacemaker or implantable defibrillator will be given further individualized evaluation and special instructions. To obtain high quality images with CTA many individuals require administration of a beta-blocker prior to the test to keep their heart rates under 70 beats per minute."
-   },
-   {
-    "type": "heading",
-    "text": "What can I expect during the scan?"
-   },
-   {
-    "type": "p",
-    "text": "During a CT scan, you will be lying on a comfortable couch as it slowly moves through an opening in the examination unit, commonly referred to as the \u2018gantry.\u2019 All you have to do is follow the instructions given by the CT technologist or radiologist. For example, you may be asked to briefly hold your breath or not to move certain regions of your body."
-   },
-   {
-    "type": "heading",
-    "text": "Will I feel anything?"
-   },
-   {
-    "type": "p",
-    "text": "CT itself is a quick, painless procedure. For CTA, an IV is required for injection of x-ray contrast (dye)."
-   },
-   {
-    "type": "heading",
-    "text": "How long will my CT exam take?"
-   },
-   {
-    "type": "p",
-    "text": "The CT scan itself usually takes 10 to 15 minutes. However CTA requires additional screening, pre-medication, insertion of an IV and an hour of observation after the test, so plan to spend approximately two-and-one-half hours."
+    "type": "qa",
+    "q": "How long will my CT exam take?",
+    "lines": [
+     [
+      "p",
+      "The CT scan itself usually takes 10 to 15 minutes. However CTA requires additional screening, pre-medication, insertion of an IV and an hour of observation after the test, so plan to spend approximately two-and-one-half hours."
+     ]
+    ]
    },
    {
     "type": "img",
@@ -2668,56 +2680,60 @@
     "text": "Frequently Asked Questions"
    },
    {
-    "type": "heading",
-    "text": "What are the indications?"
+    "type": "qa",
+    "q": "What are the indications?",
+    "lines": [
+     [
+      "li",
+      "Suspected white-coat hypertension (including in pregnancy)"
+     ],
+     [
+      "li",
+      "Suspected masked hypertension (untreated subject with normal clinic BP and elevated ABP)"
+     ],
+     [
+      "li",
+      "Suspected nocturnal hypertension or no night time reduction in BP (dipping)"
+     ],
+     [
+      "li",
+      "Hypertension despite appropriate treatment"
+     ],
+     [
+      "li",
+      "Patients with a high risk of future cardiovascular events (even if clinic BP is normal)"
+     ],
+     [
+      "li",
+      "Suspected episodic hypertension."
+     ]
+    ]
    },
    {
-    "type": "li",
-    "text": "Suspected white-coat hypertension (including in pregnancy)"
-   },
-   {
-    "type": "li",
-    "text": "Suspected masked hypertension (untreated subject with normal clinic BP and elevated ABP)"
-   },
-   {
-    "type": "li",
-    "text": "Suspected nocturnal hypertension or no night time reduction in BP (dipping)"
-   },
-   {
-    "type": "li",
-    "text": "Hypertension despite appropriate treatment"
-   },
-   {
-    "type": "li",
-    "text": "Patients with a high risk of future cardiovascular events (even if clinic BP is normal)"
-   },
-   {
-    "type": "li",
-    "text": "Suspected episodic hypertension."
-   },
-   {
-    "type": "heading",
-    "text": "Ambulatory BP monitoring may also be useful for:"
-   },
-   {
-    "type": "li",
-    "text": "Titrating antihypertensive therapy"
-   },
-   {
-    "type": "li",
-    "text": "Borderline hypertension"
-   },
-   {
-    "type": "li",
-    "text": "Hypertension detected early in pregnancy"
-   },
-   {
-    "type": "li",
-    "text": "Suspected or confirmed sleep apnoea"
-   },
-   {
-    "type": "li",
-    "text": "Syncope or other symptoms suggesting orthostatic"
+    "type": "qa",
+    "q": "Ambulatory BP monitoring may also be useful for:",
+    "lines": [
+     [
+      "li",
+      "Titrating antihypertensive therapy"
+     ],
+     [
+      "li",
+      "Borderline hypertension"
+     ],
+     [
+      "li",
+      "Hypertension detected early in pregnancy"
+     ],
+     [
+      "li",
+      "Suspected or confirmed sleep apnoea"
+     ],
+     [
+      "li",
+      "Syncope or other symptoms suggesting orthostatic"
+     ]
+    ]
    },
    {
     "type": "p",
@@ -3372,76 +3388,94 @@
     "text": "Frequently Asked Questions"
    },
    {
-    "type": "heading",
-    "text": "If someone is touching me when I am shocked, will they too receive a shock?"
+    "type": "qa",
+    "q": "If someone is touching me when I am shocked, will they too receive a shock?",
+    "lines": [
+     [
+      "p",
+      "No."
+     ]
+    ]
    },
    {
-    "type": "p",
-    "text": "No."
+    "type": "qa",
+    "q": "How are the specific parameters for my ICD measured and changed?",
+    "lines": [
+     [
+      "p",
+      "The ICD contains a computer chip that can be evaluated and reprogrammed in a painless manner. By using a hand-held device placed over your clothes, on top of the ICD, we can retrieve information about the ICD battery, leads as well as alter specific features for your ICD."
+     ]
+    ]
    },
    {
-    "type": "heading",
-    "text": "How are the specific parameters for my ICD measured and changed?"
+    "type": "qa",
+    "q": "How long will my ICD device and leads last?",
+    "lines": [
+     [
+      "p",
+      "A typical ICD battery life is 5-10 years. The ICD leads have a longevity of approximately 7-10 years. Both the battery life and the performance of the leads will be monitored through frequent evaluations by your Cardiologist.Either remotely or by an at home monitoring Device."
+     ]
+    ]
    },
    {
-    "type": "p",
-    "text": "The ICD contains a computer chip that can be evaluated and reprogrammed in a painless manner. By using a hand-held device placed over your clothes, on top of the ICD, we can retrieve information about the ICD battery, leads as well as alter specific features for your ICD."
+    "type": "qa",
+    "q": "What happens when the ICD battery becomes low?",
+    "lines": [
+     [
+      "p",
+      "When the ICD battery is measured low through routine follow ups, you will be notified and scheduled for replacement of the ICD generator. Replacement of the ICD generator is a simple outpatient procedure.The leads will be tested to make sure they function properly. After testing, the leads are connected to the new ICD pulse generator, tested and the pocket is closed. The entire operation often takes less than an hour."
+     ]
+    ]
    },
    {
-    "type": "heading",
-    "text": "How long will my ICD device and leads last?"
+    "type": "qa",
+    "q": "What should I do if I hear \u201cbeeping\u201c from my ICD?",
+    "lines": [
+     [
+      "p",
+      "If you hear an audible \u201cbeep\u201d from your ICD, please contact the office IMMEDIATELY at 407-990-1921 . There are many defibrillators that emit a tone when there is a parameter that needs to be assessed. In general, this is not an emergency."
+     ]
+    ]
    },
    {
-    "type": "p",
-    "text": "A typical ICD battery life is 5-10 years. The ICD leads have a longevity of approximately 7-10 years. Both the battery life and the performance of the leads will be monitored through frequent evaluations by your Cardiologist.Either remotely or by an at home monitoring Device."
+    "type": "qa",
+    "q": "hat are the recommendations regarding driving with an ICD?",
+    "lines": [
+     [
+      "p",
+      "After an ICD is implanted, many patients are correctly concerned about their ability to safely operate a motor vehicle. Guidelines regarding when to return to driving are dependent upon why the device was implanted and whether the implanted device is a pacemaker or defibrillator."
+     ]
+    ]
    },
    {
-    "type": "heading",
-    "text": "What happens when the ICD battery becomes low?"
+    "type": "qa",
+    "q": "Can an ICD prevent a heart attack?",
+    "lines": [
+     [
+      "p",
+      "No, an ICD cannot prevent a heart attack, A \u201cheart attack\u201d is due to a blockage in the blood flow to the heart muscle."
+     ]
+    ]
    },
    {
-    "type": "p",
-    "text": "When the ICD battery is measured low through routine follow ups, you will be notified and scheduled for replacement of the ICD generator. Replacement of the ICD generator is a simple outpatient procedure.The leads will be tested to make sure they function properly. After testing, the leads are connected to the new ICD pulse generator, tested and the pocket is closed. The entire operation often takes less than an hour."
+    "type": "qa",
+    "q": "Does an ICD treat other heart rhythm abnormalities like atrial fibrillation?",
+    "lines": [
+     [
+      "p",
+      "An ICD is designed to treat rapid heart rhythms from the bottom chamber of the heart as well as excessively slow heart rhythms that are treated with pacing therapies. However, an ICD does not treat rapid heart rhythm problems from the top chambers of the heart, such as atrial fibrillation."
+     ]
+    ]
    },
    {
-    "type": "heading",
-    "text": "What should I do if I hear \u201cbeeping\u201c from my ICD?"
-   },
-   {
-    "type": "p",
-    "text": "If you hear an audible \u201cbeep\u201d from your ICD, please contact the office IMMEDIATELY at 407-990-1921 . There are many defibrillators that emit a tone when there is a parameter that needs to be assessed. In general, this is not an emergency."
-   },
-   {
-    "type": "heading",
-    "text": "hat are the recommendations regarding driving with an ICD?"
-   },
-   {
-    "type": "p",
-    "text": "After an ICD is implanted, many patients are correctly concerned about their ability to safely operate a motor vehicle. Guidelines regarding when to return to driving are dependent upon why the device was implanted and whether the implanted device is a pacemaker or defibrillator."
-   },
-   {
-    "type": "heading",
-    "text": "Can an ICD prevent a heart attack?"
-   },
-   {
-    "type": "p",
-    "text": "No, an ICD cannot prevent a heart attack, A \u201cheart attack\u201d is due to a blockage in the blood flow to the heart muscle."
-   },
-   {
-    "type": "heading",
-    "text": "Does an ICD treat other heart rhythm abnormalities like atrial fibrillation?"
-   },
-   {
-    "type": "p",
-    "text": "An ICD is designed to treat rapid heart rhythms from the bottom chamber of the heart as well as excessively slow heart rhythms that are treated with pacing therapies. However, an ICD does not treat rapid heart rhythm problems from the top chambers of the heart, such as atrial fibrillation."
-   },
-   {
-    "type": "heading",
-    "text": "What type of interactions may occur with my ICD and a microwave, cell phone, store security devices, airport security or arc welding?"
-   },
-   {
-    "type": "p",
-    "text": "There is no interaction between a microwave and an ICD. We would prefer that you use a cell phone on the opposite side of your ICD but, in general, the likelihood of complications between an ICD and cell phone is quite low. When going through airport security, it is important that you inform the airport security personnel that you have an ICD. You will need to show your device ID card and you should be asked to be hand searched. An ICD pulse generator may be sensitive to anti-theft systems often found in stores and public libraries. These systems will not adversely affect the ICD if you walk through them in a normal manner without lingering near them. Arc welding can interfere with the function of an ICD, but this interaction depends on the type of arc welding that is performed. If you use an arc welder, please discuss this issue with your electrophysiologist."
+    "type": "qa",
+    "q": "What type of interactions may occur with my ICD and a microwave, cell phone, store security devices, airport security or arc welding?",
+    "lines": [
+     [
+      "p",
+      "There is no interaction between a microwave and an ICD. We would prefer that you use a cell phone on the opposite side of your ICD but, in general, the likelihood of complications between an ICD and cell phone is quite low. When going through airport security, it is important that you inform the airport security personnel that you have an ICD. You will need to show your device ID card and you should be asked to be hand searched. An ICD pulse generator may be sensitive to anti-theft systems often found in stores and public libraries. These systems will not adversely affect the ICD if you walk through them in a normal manner without lingering near them. Arc welding can interfere with the function of an ICD, but this interaction depends on the type of arc welding that is performed. If you use an arc welder, please discuss this issue with your electrophysiologist."
+     ]
+    ]
    },
    {
     "type": "img",
@@ -4572,116 +4606,140 @@
     "alt": ""
    },
    {
-    "type": "heading",
-    "text": "What are varicose veins?"
+    "type": "qa",
+    "q": "What are varicose veins?",
+    "lines": [
+     [
+      "p",
+      "Varicose veins are bulging, blue veins near the surface of the skin caused by damaged valves. This affects 10%-20% of adults. The most common location for varicose veins is the back of the calf and the vein inside of the leg that runs from the groin to the ankle. Not only are these veins unsightly, but because they are holding more blood that usual, the blood can be forced into the surrounding tissue. This causes the leg to swell and feel heavy, compressing nerve muscle, bone, and surrounding tissues. Varicose veins can also cause itching and burning of the skin, and in extreme cases venous ulceration."
+     ]
+    ]
    },
    {
-    "type": "p",
-    "text": "Varicose veins are bulging, blue veins near the surface of the skin caused by damaged valves. This affects 10%-20% of adults. The most common location for varicose veins is the back of the calf and the vein inside of the leg that runs from the groin to the ankle. Not only are these veins unsightly, but because they are holding more blood that usual, the blood can be forced into the surrounding tissue. This causes the leg to swell and feel heavy, compressing nerve muscle, bone, and surrounding tissues. Varicose veins can also cause itching and burning of the skin, and in extreme cases venous ulceration."
+    "type": "qa",
+    "q": "What causes varicose veins?",
+    "lines": [
+     [
+      "p",
+      "Varicose veins are caused by damaged valves in the veins of the leg. Veins pump blood back to the heart, but the veins in your leg must defy gravity to get the blood back up. This is especially true for people who spend long periods of time standing. The valves prevent blood from flowing backwards. When these valves become damaged, blood flows back down the vein and pools in the leg. This pooling causes the vein to swell, which further contributes to valve damage. As the vein swells it bulges and becomes visible underneath the skin."
+     ]
+    ]
    },
    {
-    "type": "heading",
-    "text": "What causes varicose veins?"
+    "type": "qa",
+    "q": "Why Do Varicose Veins Occur Mostly In The Legs?",
+    "lines": [
+     [
+      "p",
+      "The distance from your feet to your heart is the furthest blood must travel, and in addition to this it must travel against gravity. The legs, and the veins in your legs, are also withstanding the pressure put on them by your body weight every time you stand. These factors force the veins in your legs to work harder than the veins elsewhere in your body, making them the most likely to be affected by venous reflux which causes varicose veins."
+     ]
+    ]
    },
    {
-    "type": "p",
-    "text": "Varicose veins are caused by damaged valves in the veins of the leg. Veins pump blood back to the heart, but the veins in your leg must defy gravity to get the blood back up. This is especially true for people who spend long periods of time standing. The valves prevent blood from flowing backwards. When these valves become damaged, blood flows back down the vein and pools in the leg. This pooling causes the vein to swell, which further contributes to valve damage. As the vein swells it bulges and becomes visible underneath the skin."
+    "type": "qa",
+    "q": "Who is most at risk for varicose veins?",
+    "lines": [
+     [
+      "p",
+      "There are many factors that contribute to whether someone is at risk for varicose veins. Heredity, blood clots, hormonal changes, obesity, standing frequently for prolonged periods, and past vein diseases are some of these factors. Women are more likely to get them than men, and people over 50 are 50% more likely to get varicose veins."
+     ]
+    ]
    },
    {
-    "type": "heading",
-    "text": "Why Do Varicose Veins Occur Mostly In The Legs?"
+    "type": "qa",
+    "q": "What are the symptoms of Varicose Veins?",
+    "lines": [
+     [
+      "p",
+      "In addition to the bulging, blue appearance, varicose veins can cause swelling, a feeling of heaviness in the legs, the vein itself may ache, and the skin around them may become inflamed, red, and itchy. In severe cases, some patients have developed venous ulcerations. Varicose veins can also cause or worsen Restless Leg Syndrome."
+     ]
+    ]
    },
    {
-    "type": "p",
-    "text": "The distance from your feet to your heart is the furthest blood must travel, and in addition to this it must travel against gravity. The legs, and the veins in your legs, are also withstanding the pressure put on them by your body weight every time you stand. These factors force the veins in your legs to work harder than the veins elsewhere in your body, making them the most likely to be affected by venous reflux which causes varicose veins."
+    "type": "qa",
+    "q": "What are venous leg ulcers or Venous Ulcerations?",
+    "lines": [
+     [
+      "p",
+      "The swelling of varicose veins in the leg can cause the overlying skin to break down and create an ulcer in some people. Typically on the lower leg, it is an area where the top layer of skin has died and exposed the raw flesh underneath due to tissue breakdown. Ulcers can range in size from the size of a thumbnail to completely encompassing the leg. These ulcers are painful, odorous, and weep fluids. This is a more severe symptom manifestation of varicose veins, usually resulting when these veins are left untreated for a long time. Venous ulcerations tend to develop in older people, but have been known to occur as young as the teenage years in some. These ulcers need to be differentiated from arterial ulcers, which have a different pathology and treatment plan."
+     ]
+    ]
    },
    {
-    "type": "heading",
-    "text": "Who is most at risk for varicose veins?"
+    "type": "qa",
+    "q": "Are there short term treatments for varicose veins?",
+    "lines": [
+     [
+      "p",
+      "We tell our Heart Vein & Vascular patients that an easy way to remember the conservative approach to varicose vein treatments is ESES (pronounced \u201cS.S.\u201d). This stands for Exercise, Stockings, Elevation, and Still. Exercising, wearing compression stockings, elevating the legs, and resting the legs can all help to ease the symptoms caused by varicose veins. Weight loss can also help. This approach will not fix the varicose vein, however, as it does not address the cause of varicose veins- venous reflux. The treatments performed in our Longwood office, such as The Closure Procedure and Ambulatory Phlebectomy provide longer-term results."
+     ]
+    ]
    },
    {
-    "type": "p",
-    "text": "There are many factors that contribute to whether someone is at risk for varicose veins. Heredity, blood clots, hormonal changes, obesity, standing frequently for prolonged periods, and past vein diseases are some of these factors. Women are more likely to get them than men, and people over 50 are 50% more likely to get varicose veins."
+    "type": "qa",
+    "q": "What is sclerotherapy?",
+    "lines": [
+     [
+      "p",
+      "Sclerotherapy is a procedure where the vein is injected with a chemical solution that causes the vein to spasm and close. This re-routes the blood to other, healthy veins. Typically this is more successful on smaller veins, and is only a temporary solution for larger varicose veins."
+     ]
+    ]
    },
    {
-    "type": "heading",
-    "text": "What are the symptoms of Varicose Veins?"
+    "type": "qa",
+    "q": "What is ambulatory phlebectomy?",
+    "lines": [
+     [
+      "p",
+      "Ambulatory phlebectomy is a procedure where varicose veins that are close to the surface are removed through small incisions. These incisions are so small that no stitching is required. After cleaning the area with sterile technique, a surgical hook is inserted into the incision and the vein is fished out of the leg. This procedure is done in our Longwood office\u2019s vein treatment room."
+     ]
+    ]
    },
    {
-    "type": "p",
-    "text": "In addition to the bulging, blue appearance, varicose veins can cause swelling, a feeling of heaviness in the legs, the vein itself may ache, and the skin around them may become inflamed, red, and itchy. In severe cases, some patients have developed venous ulcerations. Varicose veins can also cause or worsen Restless Leg Syndrome."
+    "type": "qa",
+    "q": "When is the Closure Procedure used?",
+    "lines": [
+     [
+      "p",
+      "Here at Heart Vein Vascular, we also use a procedure called VNUS Closure\u00ae to reroute blood flow to healthy veins. It is much less invasive than vein stripping, as it does not require removal of the vein. A catheter is inserted into the affected vein, and thermal heat is applied which causes the vein to collapse. The vein is absorbed over time by the surrounding tissue in your body. This method is also known as Endovenous Catheter Occlusion."
+     ]
+    ]
    },
    {
-    "type": "heading",
-    "text": "What are venous leg ulcers or Venous Ulcerations?"
+    "type": "qa",
+    "q": "What is the main difference between arteries and veins?",
+    "lines": [
+     [
+      "p",
+      "Arteries carry oxygen-rich blood away from the heart, delivering it to the rest of your body. Veins carry the de-oxygenated blood back to the heart. This is why it is the veins, not arteries, which must defy gravity when pumping blood back up your legs, and are therefore susceptible to damaged valves. Veins in your legs have one way valves, but arteries do not."
+     ]
+    ]
    },
    {
-    "type": "p",
-    "text": "The swelling of varicose veins in the leg can cause the overlying skin to break down and create an ulcer in some people. Typically on the lower leg, it is an area where the top layer of skin has died and exposed the raw flesh underneath due to tissue breakdown. Ulcers can range in size from the size of a thumbnail to completely encompassing the leg. These ulcers are painful, odorous, and weep fluids. This is a more severe symptom manifestation of varicose veins, usually resulting when these veins are left untreated for a long time. Venous ulcerations tend to develop in older people, but have been known to occur as young as the teenage years in some. These ulcers need to be differentiated from arterial ulcers, which have a different pathology and treatment plan."
-   },
-   {
-    "type": "heading",
-    "text": "Are there short term treatments for varicose veins?"
-   },
-   {
-    "type": "p",
-    "text": "We tell our Heart Vein & Vascular patients that an easy way to remember the conservative approach to varicose vein treatments is ESES (pronounced \u201cS.S.\u201d). This stands for Exercise, Stockings, Elevation, and Still. Exercising, wearing compression stockings, elevating the legs, and resting the legs can all help to ease the symptoms caused by varicose veins. Weight loss can also help. This approach will not fix the varicose vein, however, as it does not address the cause of varicose veins- venous reflux. The treatments performed in our Longwood office, such as The Closure Procedure and Ambulatory Phlebectomy provide longer-term results."
-   },
-   {
-    "type": "heading",
-    "text": "What is sclerotherapy?"
-   },
-   {
-    "type": "p",
-    "text": "Sclerotherapy is a procedure where the vein is injected with a chemical solution that causes the vein to spasm and close. This re-routes the blood to other, healthy veins. Typically this is more successful on smaller veins, and is only a temporary solution for larger varicose veins."
-   },
-   {
-    "type": "heading",
-    "text": "What is ambulatory phlebectomy?"
-   },
-   {
-    "type": "p",
-    "text": "Ambulatory phlebectomy is a procedure where varicose veins that are close to the surface are removed through small incisions. These incisions are so small that no stitching is required. After cleaning the area with sterile technique, a surgical hook is inserted into the incision and the vein is fished out of the leg. This procedure is done in our Longwood office\u2019s vein treatment room."
-   },
-   {
-    "type": "heading",
-    "text": "When is the Closure Procedure used?"
-   },
-   {
-    "type": "p",
-    "text": "Here at Heart Vein Vascular, we also use a procedure called VNUS Closure\u00ae to reroute blood flow to healthy veins. It is much less invasive than vein stripping, as it does not require removal of the vein. A catheter is inserted into the affected vein, and thermal heat is applied which causes the vein to collapse. The vein is absorbed over time by the surrounding tissue in your body. This method is also known as Endovenous Catheter Occlusion."
-   },
-   {
-    "type": "heading",
-    "text": "What is the main difference between arteries and veins?"
-   },
-   {
-    "type": "p",
-    "text": "Arteries carry oxygen-rich blood away from the heart, delivering it to the rest of your body. Veins carry the de-oxygenated blood back to the heart. This is why it is the veins, not arteries, which must defy gravity when pumping blood back up your legs, and are therefore susceptible to damaged valves. Veins in your legs have one way valves, but arteries do not."
-   },
-   {
-    "type": "heading",
-    "text": "What are the types of veins?"
-   },
-   {
-    "type": "p",
-    "text": "There are three main types of veins:"
-   },
-   {
-    "type": "p",
-    "text": "Deep Leg Veins \u2013 As the name suggests, these veins are deep in your legs near the bone. They pump blood directly back to the heart."
-   },
-   {
-    "type": "p",
-    "text": "Superficial Leg Veins \u2013 These veins are close to the surface of your skin, and thus do not receive as much support from muscle and bones as the deep leg veins do. These veins are more likely to develop weaknesses. Most vein procedures are performed on superficial veins."
-   },
-   {
-    "type": "p",
-    "text": "Perforator Veins \u2013 These are the veins that connect the superficial leg veins to the deep leg veins."
-   },
-   {
-    "type": "p",
-    "text": "If you have any more questions, or to see which varicose vein treatment is right for you, contact the Heart Vein & Vascular to schedule your consultation."
+    "type": "qa",
+    "q": "What are the types of veins?",
+    "lines": [
+     [
+      "p",
+      "There are three main types of veins:"
+     ],
+     [
+      "p",
+      "Deep Leg Veins \u2013 As the name suggests, these veins are deep in your legs near the bone. They pump blood directly back to the heart."
+     ],
+     [
+      "p",
+      "Superficial Leg Veins \u2013 These veins are close to the surface of your skin, and thus do not receive as much support from muscle and bones as the deep leg veins do. These veins are more likely to develop weaknesses. Most vein procedures are performed on superficial veins."
+     ],
+     [
+      "p",
+      "Perforator Veins \u2013 These are the veins that connect the superficial leg veins to the deep leg veins."
+     ],
+     [
+      "p",
+      "If you have any more questions, or to see which varicose vein treatment is right for you, contact the Heart Vein & Vascular to schedule your consultation."
+     ]
+    ]
    },
    {
     "type": "img",

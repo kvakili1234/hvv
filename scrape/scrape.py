@@ -112,10 +112,11 @@ def extract(slug, html):
             title_el = w.select_one(".elementor-accordion-title, .elementor-toggle-title, .e-n-accordion-item-title, summary")
             cont_el = w.select_one(".elementor-tab-content, .e-n-accordion-item-content, .elementor-toggle-content")
             ttl = clean(title_el.get_text()) if title_el else ""
-            if ttl: blocks.append({"type": "heading", "text": ttl})
-            if cont_el:
-                for typ, t in text_lines(cont_el):
-                    blocks.append({"type": typ, "text": t})
+            lines = text_lines(cont_el) if cont_el else []
+            if ttl and lines:
+                blocks.append({"type": "qa", "q": ttl, "lines": lines})  # collapsible accordion item
+            elif ttl:
+                blocks.append({"type": "heading", "text": ttl})
         elif "elementor-widget-heading" in cls:
             txt = clean(w.get_text())
             if txt: blocks.append({"type": "heading", "text": txt})
@@ -140,7 +141,7 @@ def extract(slug, html):
     out = []
     seen = set()
     for b in blocks:
-        key = (b.get("type"), b.get("text",""), b.get("src",""))
+        key = (b.get("type"), b.get("text",""), b.get("src",""), b.get("q",""))
         if key in seen: continue
         seen.add(key)
         out.append(b)
