@@ -92,8 +92,9 @@ def extract(slug, html):
             txt = clean(w.get_text())
             if txt: blocks.append({"type": "heading", "text": txt})
         elif "elementor-widget-text-editor" in cls:
-            # keep paragraph + list structure
+            # keep paragraph + list structure; convert <br> to spaces so words aren't glued
             for el in w.select("p, li, h2, h3, h4"):
+                for br in el.find_all("br"): br.replace_with(" ")
                 txt = clean(el.get_text())
                 if txt and len(txt) > 1:
                     blocks.append({"type": "li" if el.name == "li" else ("h" if el.name in ("h2","h3","h4") else "p"), "text": txt})

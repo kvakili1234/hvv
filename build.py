@@ -15,7 +15,7 @@ SITE = "https://kvakili1234.github.io/hvv"
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
 ADDR="2170 W State Road 434, Ste 190, Longwood, FL 32779"
 PORTAL="https://health.healow.com/hvv"
-LINKEDIN="https://www.linkedin.com/in/babak-alex-vakili-md-facc-fscai-cpi-198b75353/"
+LINKEDIN="https://www.linkedin.com/in/babakvakili/"
 # form delivery (no backend; activates after first email is confirmed by office)
 FORM_ACTION="https://formsubmit.co/ajax/" + EMAIL
 
@@ -248,39 +248,68 @@ def fmt_inline(t):
         return f"<b>{esc(deshout_words(m.group(1)))}:</b> {esc(deshout_words(m.group(2)))}"
     return esc(deshout_words(t))  # word-level: only ALLCAPS words change; normal text untouched
 
-# render cleaned content blocks into HTML (paragraphs, lists, sub-headings, callouts)
+def fmt_sub(s):
+    # sub-bullet "Title-Case Label: description" -> bold label + description
+    m=re.match(r'^(.{2,64}?):\s+(\S.*)$', s)
+    if m:
+        return f"<b>{esc(deshout_words(m.group(1)))}:</b> {esc(deshout_words(m.group(2)))}"
+    return esc(deshout_words(s))
+
+def parse_steps_para(text):
+    # "1. Title: – Sub: text – Sub: text 2. Title: ..." -> [(title,[subs]), ...]
+    parts=re.split(r'(?<![0-9])\s*(\d{1,2})\.\s+', " "+text)
+    steps=[]; i=1
+    while i+1 < len(parts):
+        body=parts[i+1].strip()
+        subs=[x.strip() for x in re.split(r'\s+[–—]\s+|\s+-\s+', body) if x.strip()]
+        if subs:
+            title=subs[0].rstrip(": ").strip(); subitems=subs[1:]
+        else:
+            title=body.rstrip(": ").strip(); subitems=[]
+        steps.append((title, subitems)); i+=2
+    return steps
+
+# render cleaned content blocks into HTML (paragraphs, lists, numbered steps, sub-headings)
 def render_content(slug, base, skip_heads=None, skip_imgs=True):
     skip_heads = skip_heads or set()
     skipset={h.strip().rstrip(":. ").lower() for h in skip_heads}
     blocks=clean_blocks(slug)
-    parts=[]; ul=[]; first_p=[True]
-    def flush():
-        if ul:
-            parts.append("<ul>"+"".join(f"<li>{fmt_inline(x)}</li>" for x in ul)+"</ul>"); ul.clear()
+    parts=[]; ul=[]; steps=[]; first_p=[True]
+    def flush_ul():
+        if ul: parts.append("<ul>"+"".join(f"<li>{fmt_inline(x)}</li>" for x in ul)+"</ul>"); ul.clear()
+    def flush_steps():
+        if steps:
+            lis=""
+            for title,subs in steps:
+                sub_html=("<ul>"+"".join(f"<li>{fmt_sub(s)}</li>" for s in subs)+"</ul>") if subs else ""
+                lis+=f"<li><span class='st'>{esc(deshout_words(title))}</span>{sub_html}</li>"
+            parts.append(f"<ol class='proc-steps'>{lis}</ol>"); steps.clear()
+    def flush(): flush_ul(); flush_steps()
     for b in blocks:
         t=b.get("text","").strip()
         if not t: continue
-        if b["type"]=="img":
-            continue  # images handled separately as figure
+        if b["type"]=="img": continue
         if b["type"]=="heading":
             if t.rstrip(":. ").lower() in skipset: continue
             flush(); parts.append(f"<h2>{esc(deshout_words(t))}</h2>")
         elif b["type"]=="li":
-            ul.append(t)
-        else: # paragraph — may contain a run-on ALLCAPS heading glued to a sentence
+            flush_steps(); ul.append(t)
+        else: # paragraph
             if t.rstrip(":. ").lower() in skipset: continue
             if re.match(r'(?i)^\s*click\s+here', t): continue
-            # split glue like "SCLEROTHERAPYThe most..." -> two segments
+            if re.match(r'^\d{1,2}\.\s', t):  # numbered instruction list
+                flush_ul(); steps.extend(parse_steps_para(t)); continue
+            flush_steps()
+            # split run-on caps glue like "SCLEROTHERAPYThe most..."
             segs=[s for s in re.sub(r'([A-Z]{2,})([A-Z][a-z])', r'\1\n\2', t).split("\n") if s.strip()]
             for seg in segs:
-                seg=seg.strip()
-                words=seg.split()
+                seg=seg.strip(); words=seg.split()
                 if seg.startswith(("•","·","-")):
                     ul.append(seg.lstrip("•·- ").strip()); continue
-                # short colon line, or short shouty phrase -> subheading
-                if (seg.endswith(":") and len(words)<=6) or (_shouty(seg) and len(words)<=8):
-                    flush(); parts.append(f"<h3>{esc(deshout_words(seg.rstrip(': ')))}</h3>"); continue
-                flush()
+                short_title = (len(words)<=5 and seg[0].isupper() and "," not in seg and not re.search(r'[.!?]$', seg))
+                if (seg.endswith(":") and len(words)<=7) or (_shouty(seg) and len(words)<=8) or short_title:
+                    flush_ul(); parts.append(f"<h3>{esc(deshout_words(seg.rstrip(': ')))}</h3>"); continue
+                flush_ul()
                 cls=' class="lede"' if first_p[0] else ''
                 parts.append(f"<p{cls}>{fmt_inline(seg)}</p>"); first_p[0]=False
     flush()
