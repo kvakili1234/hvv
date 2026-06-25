@@ -322,7 +322,7 @@ def appt_form(base):
     return f'''<div>
  <form class="cform" action="{FORM_ACTION}" method="POST" onsubmit="return submitForm(event)">
   <div class="form-body">
-   <h3>Request an Appointment</h3><p class="fsub">Tell us a little about you and our office will reach out to confirm — often the same week.</p>
+   <h3>Request an Appointment</h3><p class="fsub">Tell us a little about you and our office will reach out to confirm.</p>
    <input type="hidden" name="_subject" value="New appointment request — heartveinvascular.com"/>
    <input type="text" name="_honey" style="display:none"/>
    <div class="row">
@@ -388,6 +388,11 @@ def reviews_carousel(base):
 # ---------------- HOME ----------------
 def build_home():
     base=""
+    # Dr. Vakili's REAL LinkedIn posts (activity IDs scraped from his live site) — embedded, not paraphrased
+    LI_POSTS=["7396940650752987136","7396424270551265281","7395717728776495105"]
+    li_embeds="".join(
+        f'<div class="li-embed"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:{pid}" height="540" width="100%" frameborder="0" allowfullscreen title="Dr. Vakili LinkedIn post" loading="lazy"></iframe></div>'
+        for pid in LI_POSTS)
     slides=[
      ("Your Heart, Your Health,","Our Focus","Experience advanced cardiovascular testing and treatment in a private, deeply personal setting — where you always see your physician, Dr. Babak Alex Vakili.","heart.html","Explore Heart Care"),
      ("Your Legs, Your Comfort,","Our Priority","Find relief from vein pain, swelling, and cosmetic concerns with advanced, minimally invasive vein treatments in a calm, private setting.","vein-vascular.html","Explore Vein Care"),
@@ -497,11 +502,8 @@ def build_home():
   <div><span class="eyebrow">From Dr. Vakili</span><h2 style="font-size:34px;margin-top:12px">Insights &amp; thought leadership.</h2></div>
   <a class="li-btn" href="{LINKEDIN}" target="_blank" rel="noopener"><svg style="width:18px;height:18px" viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8h4V24h-4zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4 0 4.8 2.6 4.8 6.05V24h-4v-7.2c0-1.7 0-3.9-2.4-3.9s-2.7 1.86-2.7 3.78V24H8z"/></svg>Follow on LinkedIn</a>
  </div>
- <div class="li-grid">
-  <a class="li-card" href="{LINKEDIN}recent-activity/all/" target="_blank" rel="noopener"><div class="dt">June 2026</div><h3>RNA Splicing and Cardiovascular Disease</h3><p>&ldquo;When I saw this 2026 State-of-the-Art Review in the European Heart Journal, I thought it would be painfully boring — but by the end I realized the concept is going to be central to how we treat heart disease…&rdquo;</p><span class="rd">Read on LinkedIn →</span></a>
-  <a class="li-card" href="{LINKEDIN}recent-activity/all/" target="_blank" rel="noopener"><div class="dt">March 2026</div><h3>2026 ACC/AHA Dyslipidemia Guideline</h3><p>&ldquo;The 2026 ACC/AHA Multisociety Guideline for the Management of Dyslipidemia was just published in JACC. The guideline introduces the PREVENT risk calculator…&rdquo;</p><span class="rd">Read on LinkedIn →</span></a>
-  <a class="li-card" href="{LINKEDIN}recent-activity/all/" target="_blank" rel="noopener"><div class="dt">February 2026</div><h3>Anticoagulation After Afib Ablation?</h3><p>&ldquo;One of the most common questions I get after referring a patient for atrial fibrillation ablation is simple: &lsquo;Can I stop my anticoagulation?&rsquo; Here&rsquo;s how I think about that decision with each patient…&rdquo;</p><span class="rd">Read on LinkedIn →</span></a>
- </div>
+ <div class="li-grid">{li_embeds}</div>
+ <p class="center" style="margin-top:26px;color:var(--muted);font-size:14px">See more on <a href="{LINKEDIN}recent-activity/all/" target="_blank" rel="noopener" style="color:#0A66C2;font-weight:600">Dr. Vakili&rsquo;s LinkedIn →</a></p>
 </div></section>
 
 {reviews_carousel(base)}
@@ -523,7 +525,7 @@ def build_home():
 <section class="section soft" id="contact"><div class="wrap">
  <div class="center" style="max-width:560px;margin:0 auto 40px"><span class="eyebrow" style="justify-content:center">Schedule a Visit</span>
   <h2 style="font-size:40px;margin:16px 0 8px">Request your appointment.</h2>
-  <p class="lead">Tell us a little about you and our office will reach out to confirm — often the same week.</p></div>
+  <p class="lead">Tell us a little about you and our office will reach out to confirm.</p></div>
  <div class="c-in">{appt_form(base)}{contact_aside(base)}</div>
 </div></section>
 '''
@@ -614,7 +616,7 @@ def cta_band(base):
     return f'''<section class="section soft"><div class="wrap center" style="max-width:620px;margin:0 auto">
  <span class="eyebrow" style="justify-content:center">Ready When You Are</span>
  <h2 style="font-size:34px;margin:16px 0 10px">Have a question or ready to be seen?</h2>
- <p class="lead" style="margin-bottom:26px">Request an appointment and our office will reach out to confirm — often the same week. A physician referral is required for diagnostic services.</p>
+ <p class="lead" style="margin-bottom:26px">Request an appointment and our office will reach out to confirm. A physician referral is required for diagnostic services.</p>
  <div style="display:flex;gap:13px;justify-content:center;flex-wrap:wrap"><a class="btn" href="{base}book.html">Book an Appointment</a><a class="btn ghost" href="tel:+1{PHONE.replace('-','')}">Call {PHONE}</a></div>
 </div></section>'''
 
@@ -657,7 +659,7 @@ def build_procedure(slug):
  <div class="proc-body">{fig}{content}
   <div class="callout"><b>Please note:</b> A physician referral is required for all diagnostic services. Have questions about whether this is right for you? <a href="{base}contact.html" style="color:var(--rose-d);font-weight:600;text-decoration:underline">Contact our office</a> or call <a href="tel:+1{PHONE.replace('-','')}" style="color:var(--rose-d);font-weight:600">{PHONE}</a>.</div>
  </div>
- <aside><div class="sidecard"><h4>Schedule this service</h4><p>Request an appointment and our office will reach out to confirm — often the same week.</p>
+ <aside><div class="sidecard"><h4>Schedule this service</h4><p>Request an appointment and our office will reach out to confirm.</p>
   <a class="btn" href="{base}book.html">Book Appointment</a>
   <a class="ph" href="tel:+1{PHONE.replace('-','')}"><svg style="width:16px;height:16px" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 3.1 2 2 0 0 1 4.1 1h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>{PHONE}</a>
   <div class="hours"><b>Office Hours</b><br>Mon–Fri 8:00 AM – 4:30 PM<br>Sat &amp; Sun: Closed<br><br><b>Address</b><br>2170 W State Road 434, Ste 190<br>Longwood, FL 32779</div></div></aside>
@@ -717,15 +719,15 @@ def build_resource(slug, title, desc):
 def build_office():
     base=""
     body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <a href="{base}about.html">Dr. Vakili</a> › <span>Office Location</span></div>
- <span class="tag">Visit Us</span><h1>Our Longwood office.</h1><p class="intro">Conveniently located on West State Road 434 in Longwood, just minutes from greater Orlando — with easy parking and a calm, private setting.</p></div></header>
+ <span class="tag">Visit Us</span><h1>Dr. Alex Vakili Office Location</h1><p class="intro">Heart Vein &amp; Vascular is located in Longwood, Florida.</p></div></header>
 <section class="section"><div class="wrap"><div class="c-in">
  <div>
   <h2 style="font-size:28px;margin-bottom:6px">Heart Vein &amp; Vascular</h2>
   <p class="lead" style="margin-bottom:24px">2170 W State Road 434, Suite 190<br>Longwood, FL 32779</p>
   <div class="checks">
-   <div class="check"><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Easy parking</b> — free surface parking directly outside the suite.</span></div>
-   <div class="check"><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Central location</b> — on SR-434 near Douglas Ave, minutes from I-4 and AdventHealth.</span></div>
-   <div class="check"><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Office hours</b> — Monday through Friday, 8:00 AM – 4:30 PM.</span></div>
+   <div class="check"><span class="ck"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 3.1 2 2 0 0 1 4.1 1h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><span><b>Phone:</b> {PHONE} &nbsp;·&nbsp; Toll-free {TOLL}</span></div>
+   <div class="check"><span class="ck"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><span><b>Email:</b> {EMAIL}</span></div>
+   <div class="check"><span class="ck"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><b>Office hours:</b> Monday – Friday, 8:00 AM – 4:30 PM · Saturday &amp; Sunday closed.</span></div>
   </div>
   <div style="display:flex;gap:13px;margin-top:28px;flex-wrap:wrap">
    <a class="btn" href="https://maps.google.com/maps?q=2170+West+State+Road+434+Suite+190+Longwood+FL+32779" target="_blank" rel="noopener">Get Directions ↗</a>
@@ -735,7 +737,7 @@ def build_office():
  {contact_aside(base)}
 </div></div></section>{cta_band(base)}'''
     return page("Office Location — Longwood, FL | Heart Vein & Vascular",
-        "Heart Vein & Vascular is located at 2170 W State Road 434, Suite 190, Longwood, FL 32779 — minutes from Orlando, with easy parking. Call (407) 990-1921.",
+        "Heart Vein & Vascular is located at 2170 W State Road 434, Suite 190, Longwood, FL 32779. Call (407) 990-1921.",
         base,"office-location.html",body)
 
 def build_resources_hub():
@@ -767,7 +769,7 @@ def build_contact():
 def build_book():
     base=""
     body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <span>Book an Appointment</span></div>
- <span class="tag">Schedule a Visit</span><h1>Book your appointment.</h1><p class="intro">Online self-scheduling is coming soon. In the meantime, request a visit below or call us — our office will confirm a time that works for you, often the same week.</p></div></header>
+ <span class="tag">Schedule a Visit</span><h1>Book your appointment.</h1><p class="intro">Online self-scheduling is coming soon. In the meantime, request a visit below or call us — our office will confirm a time that works for you.</p></div></header>
 <section class="section"><div class="wrap">
  <div class="callout" style="max-width:760px;margin:0 auto 36px;text-align:center"><b>📅 Online booking is on the way.</b> &nbsp;We&rsquo;re integrating real-time self-scheduling. For now, use the request form below or call <a href="tel:+1{PHONE.replace('-','')}" style="color:var(--rose-d);font-weight:700">{PHONE}</a> — existing patients can also book through the <a href="{PORTAL}" target="_blank" rel="noopener" style="color:var(--rose-d);font-weight:700">Patient Portal ↗</a>.</div>
  <div class="c-in">{appt_form(base)}{contact_aside(base)}</div>
