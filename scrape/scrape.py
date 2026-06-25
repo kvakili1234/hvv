@@ -84,20 +84,44 @@ def extract(slug, html):
     h1 = ""
     h1el = soup.find(["h1"]) or soup.select_one(".elementor-heading-title")
     if h1el: h1 = clean(h1el.get_text())
-    # ordered content blocks from elementor widgets
+    # ordered content blocks from elementor widgets (incl. JS accordions/toggles)
+    ACC_KEYS = ("elementor-accordion-item","elementor-toggle-item","e-n-accordion-item")
+    def in_accordion(el):
+        return el.find_parent(class_=lambda c: c and any(k in c for k in ACC_KEYS))
+    def text_lines(el):
+        # split an element into clean lines (br -> space so words aren't glued)
+        out=[]
+        for sub in el.select("p, li, h2, h3, h4"):
+            for br in sub.find_all("br"): br.replace_with(" ")
+            t = clean(sub.get_text())
+            if t and len(t) > 1:
+                out.append(("li" if sub.name=="li" else ("h" if sub.name in ("h2","h3","h4") else "p"), t))
+        if not out:
+            for br in el.find_all("br"): br.replace_with(" ")
+            t = clean(el.get_text())
+            if t: out.append(("p", t))
+        return out
     blocks = []
-    for w in soup.select(".elementor-widget-heading, .elementor-widget-text-editor, .elementor-widget-icon-list, .elementor-widget-image"):
+    SEL = ".elementor-widget-heading, .elementor-widget-text-editor, .elementor-widget-icon-list, .elementor-widget-image, .elementor-accordion-item, .elementor-toggle-item, .e-n-accordion-item"
+    for w in soup.select(SEL):
         cls = w.get("class", [])
-        if "elementor-widget-heading" in cls:
+        is_acc = any(k in " ".join(cls) for k in ACC_KEYS)
+        if not is_acc and in_accordion(w):
+            continue  # handled by its accordion item
+        if is_acc:
+            title_el = w.select_one(".elementor-accordion-title, .elementor-toggle-title, .e-n-accordion-item-title, summary")
+            cont_el = w.select_one(".elementor-tab-content, .e-n-accordion-item-content, .elementor-toggle-content")
+            ttl = clean(title_el.get_text()) if title_el else ""
+            if ttl: blocks.append({"type": "heading", "text": ttl})
+            if cont_el:
+                for typ, t in text_lines(cont_el):
+                    blocks.append({"type": typ, "text": t})
+        elif "elementor-widget-heading" in cls:
             txt = clean(w.get_text())
             if txt: blocks.append({"type": "heading", "text": txt})
         elif "elementor-widget-text-editor" in cls:
-            # keep paragraph + list structure; convert <br> to spaces so words aren't glued
-            for el in w.select("p, li, h2, h3, h4"):
-                for br in el.find_all("br"): br.replace_with(" ")
-                txt = clean(el.get_text())
-                if txt and len(txt) > 1:
-                    blocks.append({"type": "li" if el.name == "li" else ("h" if el.name in ("h2","h3","h4") else "p"), "text": txt})
+            for typ, t in text_lines(w):
+                blocks.append({"type": typ, "text": t})
         elif "elementor-widget-icon-list" in cls:
             for li in w.select(".elementor-icon-list-text"):
                 txt = clean(li.get_text())
@@ -123,21 +147,29 @@ def extract(slug, html):
     return {"slug": slug, "title": title, "meta_desc": meta_desc, "h1": h1,
             "og_image": og_image, "blocks": out}
 
+import subprocess
+CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+def render(url):
+    # rendered DOM (JS executed) so accordion/toggle content is present
+    try:
+        out = subprocess.run([CHROME,"--headless=new","--disable-gpu","--no-sandbox",
+            "--virtual-time-budget=5000","--dump-dom",url],
+            capture_output=True, text=True, timeout=45)
+        return out.stdout
+    except Exception as e:
+        print("   render err", e); return ""
+
 def main():
     data = {}
-    s = requests.Session(); s.headers.update(HDRS)
     for slug, path in PAGES.items():
         url = BASE + path
-        try:
-            r = s.get(url, timeout=25)
-            if r.status_code != 200:
-                print(f"  !! {slug} HTTP {r.status_code}"); continue
-            data[slug] = extract(slug, r.text)
-            nb = len(data[slug]["blocks"])
-            print(f"  ok {slug:32s} blocks={nb:3d} h1='{data[slug]['h1'][:40]}'")
-        except Exception as e:
-            print(f"  !! {slug} ERR {e}")
-        time.sleep(0.25)  # polite
+        html = render(url)
+        if not html or "<html" not in html.lower():
+            print(f"  !! {slug} no render"); continue
+        data[slug] = extract(slug, html)
+        nb = len(data[slug]["blocks"])
+        bl = sum(len(b.get("text","")) for b in data[slug]["blocks"] if b["type"] in ("p","li","heading"))
+        print(f"  ok {slug:32s} blocks={nb:3d} chars={bl:5d} h1='{data[slug]['h1'][:36]}'")
     with open(os.path.join(OUT, "content.json"), "w") as f:
         json.dump(data, f, indent=1)
     print(f"\nSaved {len(data)} pages -> content.json")

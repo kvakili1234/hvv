@@ -373,10 +373,9 @@ def reviews_carousel(base):
   <span class="eyebrow" style="justify-content:center">Patient Stories</span>
   <h2 style="font-size:40px;margin:16px 0 8px">Loved by Central Florida families.</h2>
   <p class="lead">Real words from patients who&rsquo;ve trusted Dr. Vakili — many for 15, 20 years and more.</p>
-  <div style="display:inline-flex;align-items:center;gap:12px;margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:50px;padding:10px 22px;box-shadow:var(--sh-sm)">
-   <span style="font-family:'Fraunces';font-size:26px;font-weight:600;color:var(--ink)">5.0</span>
+  <div style="display:inline-flex;align-items:center;gap:10px;margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:50px;padding:9px 20px;box-shadow:var(--sh-sm)">
    <span style="color:#F5A623;letter-spacing:1px;font-size:16px">★★★★★</span>
-   <span style="color:var(--muted);font-size:14px">·&nbsp; <b style="color:#4285F4">Google</b> verified · {len(REVIEWS)} reviews</span>
+   <span style="color:var(--muted);font-size:14px">Verified <b style="color:#4285F4">Google</b> reviews</span>
   </div>
  </div>
  <div class="rev-wrap"><div class="rev-track" id="revTrack">{''.join(cards)}</div>
@@ -435,7 +434,7 @@ def build_home():
   <div class="slides">{sl_html}</div>
   <div class="hero-dots">{''.join(f'<button class="{"on" if i==0 else ""}" aria-label="Slide {i+1}"></button>' for i in range(len(slides)))}</div>
  </div></div>
- <div class="hero-badge"><span class="num">5.0</span><div><span class="stars">★★★★★</span><small><span class="g">Google</span> · {len(REVIEWS)} verified reviews</small></div></div>
+ <div class="hero-badge"><div><span class="stars">★★★★★</span><small>Verified <span class="g">Google</span> reviews</small></div></div>
 </section>
 
 <div class="trustrip"><div class="wrap">
@@ -554,9 +553,8 @@ def home_schema():
 "geo":{"@type":"GeoCoordinates","latitude":28.7036,"longitude":-81.3942},
 "openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"16:30"},
 "medicalSpecialty":["Cardiovascular","Vascular"],
-"aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"%d"},
 "review":[%s],
-"employee":{"@type":"Physician","name":"Babak Alex Vakili, MD, FACC, FSCAI, CPI","jobTitle":"Interventional Cardiologist","medicalSpecialty":["Cardiovascular","Vascular"],"alumniOf":"New York University"}}'''%(SITE,SITE,EMAIL,len(REVIEWS),",".join(revs))
+"employee":{"@type":"Physician","name":"Babak Alex Vakili, MD, FACC, FSCAI, CPI","jobTitle":"Interventional Cardiologist","medicalSpecialty":["Cardiovascular","Vascular"],"alumniOf":"New York University"}}'''%(SITE,SITE,EMAIL,",".join(revs))
     return '<script type="application/ld+json">%s</script>'%data
 
 def proc_schema(title, desc, canonical, cat_label):
