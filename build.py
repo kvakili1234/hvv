@@ -118,6 +118,7 @@ def head(title, desc, base, canonical, og_img="img/family.jpg", schema=""):
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="robots" content="noindex, nofollow"/>
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}"/>
 <link rel="canonical" href="{SITE}/{canonical}"/>
@@ -239,6 +240,7 @@ def render_content(slug, base, skip_heads=None, skip_imgs=True):
             ul.append(t)
         else: # p
             if t in skip_heads: continue
+            if re.match(r'(?i)^\s*click\s+here', t): continue  # drop dangling "Click HERE" link artifacts
             flush()
             # turn bullet-ish lines into list
             cls=' class="lede"' if first_p else ''
@@ -757,7 +759,8 @@ def main():
         sm+=f"  <url><loc>{loc}</loc><priority>{pr}</priority></url>\n"
     sm+="</urlset>\n"
     write("sitemap.xml", sm)
-    write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
+    # Private preview: keep out of search engines (still openable by anyone with the link)
+    write("robots.txt", "User-agent: *\nDisallow: /\n")
     print(f"Generated {len(pages)} pages + sitemap.xml + robots.txt")
     print("  procedures:", len(allproc), "| resource pages:", sum(1 for _,_,k in RESOURCES if k=='int'))
 
