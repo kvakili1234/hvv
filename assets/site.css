@@ -520,3 +520,11 @@ footer .fabout{font-size:14px;line-height:1.7;max-width:330px}
 
 /* ===== v25: let headings/text wrap beside the floated image (only big blocks clear) ===== */
 .proc-solo h2{clear:none}
+
+/* ===== v26: centered hub headers (distinct from subcats) + less top gap ===== */
+.pagehead.center{padding:34px 0 46px}
+.pagehead.center .ph-mid{text-align:center;max-width:720px;margin:14px auto 0}
+.pagehead.center .ph-mid .tag{justify-content:center}
+.pagehead.center .ph-mid .intro{margin:14px auto 0;max-width:640px}
+.section.hub-cards{padding:50px 0 88px}
+.hub-sub{font-size:27px;text-align:center;margin:64px 0 28px}

@@ -12,7 +12,7 @@ MANI = json.load(open(os.path.join(ROOT,"scrape/img_manifest.json")))
 FAQ = json.load(open(os.path.join(ROOT,"scrape/faq.json")))
 
 SITE = "https://kvakili1234.github.io/hvv"
-ASSET_VER = "25"  # bump to bust phone/browser cache when CSS/JS change
+ASSET_VER = "26"  # bump to bust phone/browser cache when CSS/JS change
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
 ADDR="2170 W State Road 434, Ste 190, Longwood, FL 32779"
 PORTAL="https://health.healow.com/hvv"
@@ -629,46 +629,40 @@ def cardgrid(items, base):
    <div class="pb"><h3>{esc(t)}</h3><p>{esc(teaser(s))}</p><span class="more">Learn more <span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></div></a>''')
     return f'<div class="cardgrid">{"".join(cells)}</div>'
 
+def _hub(base, crumb, tag, h1, intro, cards_html, title, desc, page_slug, og):
+    body=f'''<header class="pagehead center"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <span>{esc(crumb)}</span></div>
+ <div class="ph-mid"><span class="tag">{esc(tag)}</span><h1>{esc(h1)}</h1><p class="intro">{esc(intro)}</p></div></div></header>
+<section class="section hub-cards"><div class="wrap">{cards_html}</div></section>
+{cta_band(base)}'''
+    return page(title, desc, base, page_slug, body, og_img=og)
+
 def build_heart_hub():
     base=""
-    intro=hub_intro("heart-procedures") or "At Heart Vein & Vascular, our Heart Services combine advanced diagnostics and targeted therapies to prevent, find, and treat cardiovascular disease."
-    body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <span>Heart Services</span></div>
- <span class="tag"><svg style="width:14px;height:14px" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5 4 3.5 7-2.5 4.5-9.5 9-9.5 9z"/></svg>Cardiology</span>
- <h1>Heart Services</h1><p class="intro">{esc(intro)}</p></div></header>
-<section class="section"><div class="wrap">{cardgrid(HEART, base)}</div></section>
-{cta_band(base)}'''
-    return page("Heart Services — Cardiology | Heart Vein & Vascular, Longwood FL",
+    return _hub(base,"Heart Services","Cardiology","Heart Services",
+        "Advanced diagnostics and targeted therapies to prevent, find, and treat cardiovascular disease — all in one comfortable office.",
+        cardgrid(HEART, base),
+        "Heart Services — Cardiology | Heart Vein & Vascular, Longwood FL",
         "Advanced cardiac diagnostics and treatment at Heart Vein & Vascular in Longwood, FL — catheterization, stress testing, echocardiogram, Holter monitoring and more, with Dr. Babak Alex Vakili.",
-        base,"heart.html",body,og_img="img/cardio.jpg")
+        "heart.html","img/cardio.jpg")
 
 def build_vein_hub():
     base=""
-    intro=hub_intro("vein-procedures") or hub_intro("endovenous-services") or "Office-based, minimally invasive relief from varicose and spider veins, leg swelling, and venous disease."
-    body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <span>Vein Services</span></div>
- <span class="tag">Endovenous Services</span>
- <h1>Vein Services</h1><p class="intro">{esc(intro)}</p></div></header>
-<section class="section"><div class="wrap">
- {cardgrid(VEIN, base)}
- <h2 style="font-size:28px;margin:54px 0 22px">Helpful Information</h2>{cardgrid(INFO, base)}
-</div></section>
-{cta_band(base)}'''
-    return page("Vein Services | Heart Vein & Vascular, Longwood FL",
+    cards=cardgrid(VEIN, base)+f'<h2 class="hub-sub">Helpful Information</h2>{cardgrid(INFO, base)}'
+    return _hub(base,"Vein Services","Endovenous Services","Vein Services",
+        "Office-based, minimally invasive care for varicose & spider veins, leg swelling, and venous disease.",
+        cards,
+        "Vein Services | Heart Vein & Vascular, Longwood FL",
         "Minimally invasive vein treatment at Heart Vein & Vascular in Longwood, FL — sclerotherapy, VenaSeal, radiofrequency ablation, phlebectomy, vein mapping and more.",
-        base,"vein.html",body,og_img="img/real_legs.jpg")
+        "vein.html","img/real_legs.jpg")
 
 def build_vascular_hub():
     base=""
-    intro=hub_intro("endovascular-services") or hub_intro("vascular-procedures") or "Image-guided vascular screening and diagnostics to detect and manage circulatory conditions early."
-    body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <span>Vascular Services</span></div>
- <span class="tag">Endovascular Services</span>
- <h1>Vascular Services</h1><p class="intro">{esc(intro)}</p></div></header>
-<section class="section"><div class="wrap">
- {cardgrid(VASC, base)}
-</div></section>
-{cta_band(base)}'''
-    return page("Vascular Services | Heart Vein & Vascular, Longwood FL",
+    return _hub(base,"Vascular Services","Endovascular Services","Vascular Services",
+        "Image-guided screening and diagnostics to detect and manage circulatory conditions early.",
+        cardgrid(VASC, base),
+        "Vascular Services | Heart Vein & Vascular, Longwood FL",
         "Complete vascular screening and diagnostics at Heart Vein & Vascular in Longwood, FL — carotid & arterial duplex, AAA screening, ankle-brachial index, renal and vascular ultrasound.",
-        base,"vascular.html",body,og_img="img/vascular-art.jpg")
+        "vascular.html","img/vascular-art.jpg")
 
 def build_integrative_hub():
     base=""
@@ -727,7 +721,6 @@ def build_procedure(slug):
 <section class="section"><div class="wrap">
  <div class="proc-body proc-solo">{fig}{content}
   <div class="callout"><b>Please note:</b> A physician referral is required for all diagnostic services.</div>
-  <div class="sched-note"><span class="sched-ic"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span><div class="sched-txt"><b>Schedule this service</b><p>Call our office at <a href="tel:+14079901921">(407)&nbsp;990-1921</a> and we'll find a time that works for you.</p><span class="sched-hrs">Mon–Fri 8:00 AM – 4:30 PM &nbsp;·&nbsp; 2170 W State Road 434, Suite 190, Longwood, FL 32779</span></div></div>
  </div>
 </div></section>
 <section class="section soft related"><div class="wrap"><h2>Related {esc(cat_label.split(" ")[0])} services</h2><p class="lead center" style="margin-bottom:34px">More ways we care for you under one roof.</p>{related_cards(slug, base, cat)}</div></section>'''
