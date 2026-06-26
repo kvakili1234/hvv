@@ -59,7 +59,7 @@ VASC=[("Carotid Duplex Imaging","carotid-duplex"),
  ("Vascular Ultrasound","vascular-ultrasound")]
 INFO=[("Treatment Risks & Side Effects","treatment-risks"),
  ("Frequently Asked Questions","vein-faq")]
-INTEG=[("IV Vitamins","iv-vitamins"),("Metabolic Testing","metabolic-testing")]
+INTEG=[]  # dad's current site has no Integrative section (removed per request)
 RESOURCES=[("Patient Portal",PORTAL,"ext"),
  ("Patient Forms","patient-forms","int"),
  ("Patient Education","patient-education","int"),
@@ -869,7 +869,6 @@ def main():
     pages["heart.html"]=build_heart_hub()
     pages["vein.html"]=build_vein_hub()
     pages["vascular.html"]=build_vascular_hub()
-    pages["integrative.html"]=build_integrative_hub()
     pages["about.html"]=build_about()
     pages["hospital-admissions.html"]=build_simple("hospital-admissions","Hospital Admissions","Hospital Admissions","hospital-admissions.html","Hospital admissions and affiliations for Dr. Babak Alex Vakili — Heart Vein & Vascular, Longwood FL.")
     pages["office-location.html"]=build_office()
