@@ -12,7 +12,7 @@ MANI = json.load(open(os.path.join(ROOT,"scrape/img_manifest.json")))
 FAQ = json.load(open(os.path.join(ROOT,"scrape/faq.json")))
 
 SITE = "https://kvakili1234.github.io/hvv"
-ASSET_VER = "15"  # bump to bust phone/browser cache when CSS/JS change
+ASSET_VER = "16"  # bump to bust phone/browser cache when CSS/JS change
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
 ADDR="2170 W State Road 434, Ste 190, Longwood, FL 32779"
 PORTAL="https://health.healow.com/hvv"
@@ -282,7 +282,7 @@ def render_content(slug, base, skip_heads=None, skip_imgs=True):
     strip_contact = bool(skip_heads)  # bio/simple pages: drop redundant contact/hours fragments (shown in sidebar)
     CONTACT_RE = re.compile(r'(?i)^\s*(office|phone|fax|address|email|mobile|tel|hours?)\b\s*[:#]')
     blocks=clean_blocks(slug)
-    parts=[]; ul=[]; steps=[]; qa=[]; first_p=[True]
+    parts=[]; ul=[]; steps=[]; qa=[]; first_p=[True]; img_n=[0]
     def render_lines(lines):
         out=[]; sub=[]
         def fl():
@@ -311,9 +311,17 @@ def render_content(slug, base, skip_heads=None, skip_imgs=True):
     for b in blocks:
         if b["type"]=="qa":
             flush_ul(); flush_steps(); qa.append((b.get("q",""), b.get("lines",[]))); continue
+        if b["type"]=="img":
+            if skip_imgs: continue
+            li=local_img(b.get("src",""))
+            if not li: continue
+            img_n[0]+=1
+            if img_n[0]==1: continue   # first real image is the hero (shown above)
+            flush_qa(); flush()
+            parts.append(f'<figure class="proc-img"><img src="{base}{li}" alt="{esc(b.get("alt","") or "Heart Vein & Vascular")}" loading="lazy"/></figure>')
+            continue
         t=b.get("text","").strip()
         if not t: continue
-        if b["type"]=="img": continue
         flush_qa()
         if b["type"]=="heading":
             if t.rstrip(":. ").lower() in skipset: continue
@@ -645,8 +653,8 @@ def build_procedure(slug):
     TITLE_FIX={"vein-faq":"Frequently Asked Questions","ultrasound-imaging":"Chronic Venous Insufficiency (CVI) Ultrasound"}
     title_full=TITLE_FIX.get(slug, DATA[slug]["h1"] or disp)
     desc=DATA[slug].get("meta_desc") or teaser(slug,150)
-    # tiny/poor source photos replaced with high-res stock (never Dr. Vakili photos)
-    IMG_OVERRIDE={"heart-disease-overview":"img/heart.jpg"}
+    # use his real photos for every procedure page (no stock substitutions)
+    IMG_OVERRIDE={}
     img=IMG_OVERRIDE.get(slug) or page_img(slug)
     fig=""
     if img:
@@ -661,7 +669,7 @@ def build_procedure(slug):
         content=f'<p class="lede">Answers to the questions our vein &amp; vascular patients ask most. Don&rsquo;t see yours? <a href="{base}contact.html" style="color:var(--rose);font-weight:600">Reach our office</a>.</p><div class="faqlist" style="margin-top:24px">{items}</div>'
         fig=""
     else:
-        content=render_content(slug, base)
+        content=render_content(slug, base, skip_imgs=False)
     # pull a preparation/risk callout if present
     canonical=f"p/{slug}.html"
     body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <a href="{base}{hub}">{esc(cat_label)}</a> › <span>{esc(disp)}</span></div>

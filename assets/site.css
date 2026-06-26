@@ -452,3 +452,7 @@ footer .fabout{font-size:14px;line-height:1.7;max-width:330px}
 .res-card:hover{border-color:transparent;box-shadow:var(--sh);transform:translateY(-5px)}
 .res-card:hover:after{background:var(--rose);color:#fff}
 .res-card:nth-child(even):hover:after{background:var(--blue);color:#fff}
+
+/* inline procedure images (his real photos in the content flow) */
+.proc-img{margin:24px 0;border-radius:14px;overflow:hidden;border:1px solid var(--line);max-width:560px}
+.proc-img img{width:100%;display:block}
