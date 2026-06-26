@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Option A — Heart Vein & Vascular</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#14213A;--ink2:#2C3A57;--rose:#B81E40;--muted:#6A7385;--line:#E7E4DE;--cream:#FAF8F4;--gold:#C99A4B}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;color:var(--ink2);background:#fff;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:'Newsreader',Georgia,serif;color:var(--ink);font-weight:500;line-height:1.08;letter-spacing:-.01em}
+.wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+.eyebrow{font:600 12px/1 'Inter';letter-spacing:.22em;text-transform:uppercase;color:var(--rose)}
+.btn{display:inline-block;background:var(--ink);color:#fff;padding:16px 30px;font:600 14px/1 'Inter';letter-spacing:.02em;border-radius:2px;transition:.2s}
+.btn:hover{background:var(--rose)}
+.btn.line{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.btn.line:hover{background:var(--ink);color:#fff}
+/* top */
+.util{background:var(--ink);color:#C7CEDC;font-size:13px}
+.util .wrap{display:flex;justify-content:space-between;align-items:center;padding:10px 40px}
+.util a:hover{color:#fff}.util .ph{color:#fff;font-weight:600}
+nav{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);z-index:50}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:20px 40px}
+.logo{font-family:'Newsreader';font-size:23px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.logo span{color:var(--rose)}
+.nlinks{display:flex;gap:34px;align-items:center;font:600 14.5px/1 'Inter'}
+.nlinks a:hover{color:var(--rose)}
+/* hero */
+.hero{padding:90px 0 80px}
+.hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:70px;align-items:center}
+.hero h1{font-size:66px;margin:24px 0 0;font-weight:500}
+.hero h1 em{font-style:italic;color:var(--rose);font-weight:500}
+.hero .sub{font-size:19px;color:var(--muted);margin:26px 0 34px;max-width:480px}
+.hero .cta{display:flex;gap:16px;align-items:center}
+.hero .trust{margin-top:38px;padding-top:28px;border-top:1px solid var(--line);display:flex;gap:40px;flex-wrap:wrap}
+.hero .trust .t b{font-family:'Newsreader';font-size:30px;color:var(--ink);font-weight:600;display:block;line-height:1}
+.hero .trust .t small{font-size:12.5px;color:var(--muted);letter-spacing:.04em}
+.stars{color:var(--gold);letter-spacing:2px;font-size:17px}
+.hero .photo{position:relative}
+.hero .photo img{width:100%;border-radius:3px;filter:grayscale(.15) contrast(1.02)}
+.hero .photo .cap{position:absolute;left:-30px;bottom:32px;background:#fff;border:1px solid var(--line);padding:18px 24px;max-width:240px;box-shadow:0 30px 60px rgba(20,33,58,.10)}
+.hero .photo .cap b{font-family:'Newsreader';font-size:18px;color:var(--ink);display:block}
+.hero .photo .cap small{font-size:12px;color:var(--rose);letter-spacing:.12em;font-weight:600;text-transform:uppercase}
+/* credential band */
+.band{background:var(--ink);color:#C7CEDC}
+.band .wrap{display:flex;justify-content:space-between;align-items:center;gap:30px;padding:30px 40px;flex-wrap:wrap;font:500 14.5px/1.5 'Inter'}
+.band b{color:#fff;font-weight:600}
+.band .dot{width:4px;height:4px;border-radius:50%;background:var(--rose);display:inline-block;margin:0 4px 2px}
+/* services */
+.sec{padding:110px 0}
+.sec-head{max-width:620px}
+.sec-head h2{font-size:46px;margin:18px 0 0}
+.svcs{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:60px;border-top:1px solid var(--line)}
+.svc{padding:40px 36px 40px 0;border-right:1px solid var(--line)}
+.svc:last-child{border-right:none;padding-right:0}
+.svc .no{font-family:'Newsreader';font-size:15px;color:var(--rose);font-weight:600}
+.svc h3{font-size:27px;margin:14px 0 14px}
+.svc p{font-size:15.5px;color:var(--muted);min-height:96px}
+.svc .more{margin-top:18px;font:600 13.5px/1 'Inter';color:var(--ink);display:inline-flex;align-items:center;gap:7px;letter-spacing:.02em}
+.svc .more:hover{color:var(--rose)}
+/* meet */
+.meet{background:var(--cream)}
+.meet .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+.meet .ph img{width:100%;border-radius:3px;filter:grayscale(.12)}
+.meet h2{font-size:44px;margin:18px 0 24px}
+.meet p{font-size:17px;color:var(--ink2);margin-bottom:18px}
+.creds{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0 30px}
+.creds span{font:600 12.5px/1 'Inter';color:var(--ink);border:1px solid var(--line);padding:9px 15px;border-radius:2px;background:#fff;letter-spacing:.03em}
+/* reviews */
+.rev .wrap{text-align:center}
+.rev h2{font-size:44px;margin:18px auto 10px;max-width:700px}
+.rev .qs{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:54px;text-align:left}
+.q{border-top:2px solid var(--ink);padding-top:24px}
+.q .stars{margin-bottom:14px}
+.q p{font-family:'Newsreader';font-size:19px;line-height:1.45;color:var(--ink);font-style:italic}
+.q cite{display:block;margin-top:20px;font:600 14px/1 'Inter';color:var(--ink);font-style:normal}
+.q cite small{display:block;color:var(--muted);font-weight:400;font-size:12.5px;margin-top:3px}
+/* cta */
+.close{background:var(--ink);color:#fff;text-align:center}
+.close h2{color:#fff;font-size:50px;margin-bottom:18px}
+.close p{color:#AFB8C9;max-width:520px;margin:0 auto 34px}
+.close .btn{background:#fff;color:var(--ink)}.close .btn:hover{background:var(--rose);color:#fff}
+.close .ph{display:block;margin-top:22px;font-family:'Newsreader';font-size:26px;color:#fff}
+footer{padding:40px 0;border-top:1px solid var(--line);font-size:13px;color:var(--muted);text-align:center}
+@media(max-width:900px){.hero .grid,.meet .grid{grid-template-columns:1fr;gap:40px}.svcs,.rev .qs{grid-template-columns:1fr}.svc{border-right:none;border-bottom:1px solid var(--line);padding:32px 0}.hero h1{font-size:44px}.wrap{padding:0 24px}.util .l{display:none}}
+</style></head>
+<body>
+<div class="util"><div class="wrap"><div class="l">Mon–Fri 8:00 AM – 4:30 PM &nbsp;·&nbsp; 2170 W State Road 434, Longwood, FL</div><div><a class="ph" href="tel:+14079901921">(407) 990-1921</a> &nbsp;&nbsp; <a href="#">Patient Portal</a></div></div></div>
+<nav><div class="wrap"><div class="logo">Heart Vein <span>&amp;</span> Vascular</div>
+<div class="nlinks"><a href="#">Heart</a><a href="#">Vein &amp; Vascular</a><a href="#">Dr. Vakili</a><a href="#">Reviews</a><a class="btn" href="#" style="padding:13px 24px">Book Appointment</a></div></div></nav>
+
+<section class="hero"><div class="wrap"><div class="grid">
+ <div>
+  <span class="eyebrow">Interventional Cardiology · Longwood, FL</span>
+  <h1>Your Heart, Your Health,<br><em>Our Focus.</em></h1>
+  <p class="sub">Advanced cardiovascular testing and treatment in a private, deeply personal setting — where you always see your physician, Dr. Babak Alex Vakili.</p>
+  <div class="cta"><a class="btn" href="#">Book an Appointment</a><a class="btn line" href="tel:+14079901921">Call (407) 990-1921</a></div>
+  <div class="trust">
+   <div class="t"><b>20+</b><small>YEARS IN PRACTICE</small></div>
+   <div class="t"><b>5.0</b><small><span class="stars">★★★★★</span> GOOGLE REVIEWS</small></div>
+   <div class="t"><b>2002</b><small>INDEPENDENT SINCE</small></div>
+  </div>
+ </div>
+ <div class="photo"><img src="drvakili.png" alt="Dr. Babak Alex Vakili">
+  <div class="cap"><small>Your Physician</small><b>Dr. Babak Alex Vakili</b><span style="font-size:13px;color:#6A7385">MD, FACC, FSCAI, CPI</span></div>
+ </div>
+</div></div></section>
+
+<div class="band"><div class="wrap">
+ <span>Board-Certified Interventional Cardiology</span>
+ <span>Former Chief of Cardiology, <b>South Seminole Hospital</b></span>
+ <span>Affiliated with <b>AdventHealth</b> &amp; <b>Orlando Health</b></span>
+ <span><b>You see Dr. Vakili</b> — every visit</span>
+</div></div>
+
+<section class="sec"><div class="wrap">
+ <div class="sec-head"><span class="eyebrow">What We Do</span><h2>Complete cardiovascular care, under one roof.</h2></div>
+ <div class="svcs">
+  <div class="svc"><div class="no">01 — Heart</div><h3>Heart &amp; Cardiology</h3><p>Our Heart Services combine advanced diagnostics and targeted therapies to prevent, find, and treat cardiovascular disease.</p><a class="more" href="#">View heart services →</a></div>
+  <div class="svc"><div class="no">02 — Vein</div><h3>Vein Care</h3><p>Our Vein Services address both the medical and cosmetic impact of venous disease using office-based, minimally invasive care.</p><a class="more" href="#">View vein services →</a></div>
+  <div class="svc"><div class="no">03 — Vascular</div><h3>Vascular &amp; Diagnostics</h3><p>Vascular Services focus on detecting circulation problems early and correcting them with image-guided, nonsurgical therapy.</p><a class="more" href="#">View vascular services →</a></div>
+ </div>
+</div></section>
+
+<section class="sec meet"><div class="wrap"><div class="grid">
+ <div class="ph"><img src="img/cardio.jpg" alt="Dr. Vakili"></div>
+ <div>
+  <span class="eyebrow">Meet Your Physician</span>
+  <h2>Two decades of trusted cardiovascular expertise.</h2>
+  <p>Dr. Babak Alex Vakili is a distinguished interventional cardiologist with additional subspecialty certifications in vascular medicine as well as venous and lymphatic disorders. In private practice in the Orlando area since 2002, he brings over two decades of unparalleled expertise and dedication to cardiovascular medicine.</p>
+  <p style="color:#6A7385;font-size:15.5px">As former Chief of Cardiology at South Seminole Hospital, he combines clinical leadership with a deeply personal approach — listening carefully, explaining clearly, and building relationships that span decades.</p>
+  <div class="creds"><span>MD</span><span>FACC</span><span>FSCAI</span><span>CPI</span><span>ABVLM</span><span>ABVM</span></div>
+  <a class="btn line" href="#">Read Full Bio &amp; Credentials</a>
+ </div>
+</div></div></section>
+
+<section class="sec rev"><div class="wrap">
+ <span class="eyebrow">Patient Stories</span>
+ <h2>Loved by Central Florida families.</h2>
+ <div class="qs">
+  <div class="q"><div class="stars">★★★★★</div><p>“Dr. Vakili is super sharp — he found my widow-maker was 90% blocked, placed a stent, and saved my life. You see <em>him</em> at every visit.”</p><cite>Angelo Jannotti<small>Verified patient</small></cite></div>
+  <div class="q"><div class="stars">★★★★★</div><p>“I was diagnosed with CVI in the later stages. Doc took the time to guide me through every step of the way. My legs look and feel better than they have in years.”</p><cite>Brett Oblinger<small>Verified patient</small></cite></div>
+  <div class="q"><div class="stars">★★★★★</div><p>“My father has been under Dr. Vakili's care for 20 years. Every time, we've been pleased by his attention to his patients — at his office or the hospital.”</p><cite>Mahshid Ghasemi<small>Family of patient</small></cite></div>
+ </div>
+</div></section>
+
+<section class="sec close"><div class="wrap">
+ <span class="eyebrow" style="color:#E3A6B2">Schedule a Visit</span>
+ <h2>Request your appointment.</h2>
+ <p>Tell us a little about you and our office will reach out to confirm a time that works for you.</p>
+ <a class="btn" href="#">Book an Appointment</a>
+ <a class="ph" href="tel:+14079901921">(407) 990-1921</a>
+</div></section>
+<footer>© 2026 Heart Vein &amp; Vascular · Babak Alex Vakili, MD, FACC, FSCAI, CPI · Longwood, FL — Option A (Refined)</footer>
+</body></html>
