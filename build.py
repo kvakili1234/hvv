@@ -12,7 +12,7 @@ MANI = json.load(open(os.path.join(ROOT,"scrape/img_manifest.json")))
 FAQ = json.load(open(os.path.join(ROOT,"scrape/faq.json")))
 
 SITE = "https://kvakili1234.github.io/hvv"
-ASSET_VER = "11"  # bump to bust phone/browser cache when CSS/JS change
+ASSET_VER = "12"  # bump to bust phone/browser cache when CSS/JS change
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
 ADDR="2170 W State Road 434, Ste 190, Longwood, FL 32779"
 PORTAL="https://health.healow.com/hvv"
@@ -434,7 +434,7 @@ def build_home():
       <p class="sub">{esc(sub)}</p>
       <div class="hero-cta"><a class="btn" href="tel:+14079901921">Call (407) 990-1921</a><a class="btn ghost" href="{base}{href}">{esc(btn)}</a></div>
       </div>'''
-    hero_imgs=["img/family.jpg","img/real_legs.jpg","img/active.jpg"]
+    hero_imgs=["img/family.jpg","img/real_legs.jpg","img/active.jpg","img/surgery.jpg"]
     himg="".join(f'<img class="{"on" if i==0 else ""}" src="{base}{s}" alt="" {"" if i==0 else "loading=lazy"}/>' for i,s in enumerate(hero_imgs))
 
     # service blocks

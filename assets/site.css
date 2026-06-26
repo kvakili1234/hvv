@@ -411,3 +411,10 @@ footer .fabout{font-size:14px;line-height:1.7;max-width:330px}
 .pillar.navy{background:linear-gradient(150deg,#4F86D0,#3A6FC0)}
 .pillar.blue{background:linear-gradient(150deg,#20A7AE,#168890)}
 .pillar.ink{background:linear-gradient(150deg,#E0A23B,#CE8420)}
+
+/* ===== v12: rein card colors into his red/blue scheme (less bright) ===== */
+.pillar.rose{background:linear-gradient(150deg,#C73834,#AC2A2A)}   /* Heart  - red */
+.pillar.navy{background:linear-gradient(150deg,#5579BC,#42629E)}   /* Vein   - logo blue */
+.pillar.blue{background:linear-gradient(150deg,#36548C,#293f6b)}   /* Vascular - deep blue */
+.pillar.ink{background:linear-gradient(150deg,#A23547,#842C3B)}    /* Dr.V   - deep red */
+.trustrip .ti:nth-child(3){border-left-color:var(--blue)}
