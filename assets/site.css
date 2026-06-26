@@ -471,3 +471,19 @@ footer .fabout{font-size:14px;line-height:1.7;max-width:330px}
 .proc-body ul li:before{left:4px;top:10px;width:6px;height:6px;background:var(--rose);background-image:none;opacity:.5}
 .proc-steps>li>ul li{padding-left:22px}
 .proc-steps>li>ul li:before{left:4px;top:10px;width:6px;height:6px;background:var(--rose);background-image:none;opacity:.5}
+
+/* ===== v20: full-width procedure layout + bottom schedule CTA + consistent fonts ===== */
+.proc-solo{max-width:840px;margin:0 auto;padding:54px 0;display:block}
+.proc-solo .proc-figure{margin:0 0 30px;max-height:400px}
+.proc-body p{font-size:16.5px;line-height:1.72}
+.proc-body .lede{font-size:18.5px}
+.proc-body ul li{font-size:16.5px;line-height:1.7}
+.proc-steps>li>ul li{font-size:16px}
+.proc-steps .st{font-size:18.5px}
+.proc-body h2{font-size:26px;margin-top:40px}
+.proc-body h3{font-size:20px;margin-top:28px}
+.proc-cta{margin-top:46px;padding:40px 36px;background:var(--soft);border:1px solid var(--line);border-radius:18px;text-align:center}
+.proc-cta h3{font-size:24px;margin-bottom:8px}
+.proc-cta p{color:var(--muted);margin-bottom:22px;font-size:16.5px}
+.proc-cta .btn{font-size:16px;padding:15px 34px}
+.proc-cta-hrs{margin-top:18px;font-size:14px;color:var(--muted)}

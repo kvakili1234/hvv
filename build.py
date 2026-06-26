@@ -12,7 +12,7 @@ MANI = json.load(open(os.path.join(ROOT,"scrape/img_manifest.json")))
 FAQ = json.load(open(os.path.join(ROOT,"scrape/faq.json")))
 
 SITE = "https://kvakili1234.github.io/hvv"
-ASSET_VER = "19"  # bump to bust phone/browser cache when CSS/JS change
+ASSET_VER = "20"  # bump to bust phone/browser cache when CSS/JS change
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
 ADDR="2170 W State Road 434, Ste 190, Longwood, FL 32779"
 PORTAL="https://health.healow.com/hvv"
@@ -724,14 +724,17 @@ def build_procedure(slug):
     canonical=f"p/{slug}.html"
     body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <a href="{base}{hub}">{esc(cat_label)}</a> › <span>{esc(disp)}</span></div>
  <span class="tag">{esc(cat_label)}</span><h1>{esc(title_full)}</h1></div></header>
-<section><div class="wrap"><div class="proc">
- <div class="proc-body">{fig}{content}
-  <div class="callout"><b>Please note:</b> A physician referral is required for all diagnostic services. Have questions about whether this is right for you? <a href="{base}contact.html" style="color:var(--rose-d);font-weight:600;text-decoration:underline">Contact our office</a> or call <a href="tel:+1{PHONE.replace('-','')}" style="color:var(--rose-d);font-weight:600">{PHONE}</a>.</div>
+<section class="section"><div class="wrap">
+ <div class="proc-body proc-solo">{fig}{content}
+  <div class="callout"><b>Please note:</b> A physician referral is required for all diagnostic services.</div>
+  <div class="proc-cta">
+   <h3>Schedule this service</h3>
+   <p>Call our office and we'll find a time that works for you.</p>
+   <a class="btn" href="tel:+14079901921"><svg class="icsm" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call (407) 990-1921</a>
+   <div class="proc-cta-hrs">Mon–Fri 8:00 AM – 4:30 PM &nbsp;·&nbsp; 2170 W State Road 434, Suite 190, Longwood, FL 32779</div>
+  </div>
  </div>
- <aside><div class="sidecard"><h4>Schedule this service</h4><p>Call our office and we'll find a time that works for you.</p>
-  <a class="btn" href="tel:+14079901921">Call (407) 990-1921</a>
-  <div class="hours"><b>Office Hours</b><br>Mon–Fri 8:00 AM – 4:30 PM<br>Sat &amp; Sun: Closed<br><br><b>Address</b><br>2170 W State Road 434, Ste 190<br>Longwood, FL 32779</div></div></aside>
-</div></div></section>
+</div></section>
 <section class="section soft related"><div class="wrap"><h2>Related {esc(cat_label.split(" ")[0])} services</h2><p class="lead center" style="margin-bottom:34px">More ways we care for you under one roof.</p>{related_cards(slug, base, cat)}</div></section>'''
     sch=proc_schema(title_full,desc,canonical,cat_label)
     if slug=="vein-faq":
