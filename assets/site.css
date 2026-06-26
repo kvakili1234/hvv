@@ -503,3 +503,7 @@ footer .fabout{font-size:14px;line-height:1.7;max-width:330px}
 .proc-solo .proc-figure.inset{max-width:430px}
 .proc-solo h2,.proc-solo .proc-steps,.proc-solo .faqlist,.proc-solo>ol,.proc-solo .callout,.proc-solo .sched-note,.proc-solo .proc-img{clear:both}
 @media(max-width:760px){.proc-solo .proc-figure{float:none;width:100%;max-width:520px;margin:0 0 26px}}
+
+/* ===== v23: procedure photo on the LEFT (matches dad's original), text wraps right ===== */
+.proc-solo .proc-figure{float:left;margin:4px 42px 24px 0}
+@media(max-width:760px){.proc-solo .proc-figure{float:none;margin:0 0 26px}}
