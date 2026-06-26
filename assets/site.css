@@ -487,3 +487,13 @@ footer .fabout{font-size:14px;line-height:1.7;max-width:330px}
 .proc-cta p{color:var(--muted);margin-bottom:22px;font-size:16.5px}
 .proc-cta .btn{font-size:16px;padding:15px 34px}
 .proc-cta-hrs{margin-top:18px;font-size:14px;color:var(--muted)}
+
+/* ===== v21: full-page procedure content + simple schedule note (no box) ===== */
+.proc-solo{max-width:none;margin:0}
+.proc-solo .proc-figure{max-width:560px}
+.sched-note{margin-top:30px;padding:20px 26px;background:var(--soft);border-left:3px solid var(--rose);border-radius:0 12px 12px 0;font-size:16.5px;color:var(--ink)}
+.sched-note b{color:var(--head)}
+.sched-note a{color:var(--rose);font-weight:700}
+.sched-note span{display:block;margin-top:6px;font-size:14px;color:var(--muted)}
+/* v21: faq + steps full-width to match procedure content */
+.proc-solo .faqlist{max-width:none;margin:0}
