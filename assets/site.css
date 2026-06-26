@@ -517,3 +517,6 @@ footer .fabout{font-size:14px;line-height:1.7;max-width:330px}
 .sched-note p{font-size:16px;color:var(--ink);margin:0}
 .sched-note a{color:var(--rose);font-weight:700;white-space:nowrap}
 .sched-note .sched-hrs{display:block;margin-top:9px;font-size:14px;color:var(--muted)}
+
+/* ===== v25: let headings/text wrap beside the floated image (only big blocks clear) ===== */
+.proc-solo h2{clear:none}
