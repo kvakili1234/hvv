@@ -12,7 +12,7 @@ MANI = json.load(open(os.path.join(ROOT,"scrape/img_manifest.json")))
 FAQ = json.load(open(os.path.join(ROOT,"scrape/faq.json")))
 
 SITE = "https://kvakili1234.github.io/hvv"
-ASSET_VER = "10"  # bump to bust phone/browser cache when CSS/JS change
+ASSET_VER = "11"  # bump to bust phone/browser cache when CSS/JS change
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
 ADDR="2170 W State Road 434, Ste 190, Longwood, FL 32779"
 PORTAL="https://health.healow.com/hvv"
@@ -434,7 +434,7 @@ def build_home():
       <p class="sub">{esc(sub)}</p>
       <div class="hero-cta"><a class="btn" href="tel:+14079901921">Call (407) 990-1921</a><a class="btn ghost" href="{base}{href}">{esc(btn)}</a></div>
       </div>'''
-    hero_imgs=["img/family.jpg","img/real_legs.jpg","img/active.jpg","img/care.jpg"]
+    hero_imgs=["img/family.jpg","img/real_legs.jpg","img/active.jpg"]
     himg="".join(f'<img class="{"on" if i==0 else ""}" src="{base}{s}" alt="" {"" if i==0 else "loading=lazy"}/>' for i,s in enumerate(hero_imgs))
 
     # service blocks
@@ -480,7 +480,7 @@ def build_home():
 </div></section>
 
 <section class="section soft"><div class="wrap"><div class="split">
- <div class="imgwrap"><img src="{base}img/care.jpg" alt="Personal, attentive cardiovascular care" loading="lazy"/>
+ <div class="imgwrap"><img src="{base}drvakili.png" alt="Dr. Babak Alex Vakili" loading="lazy"/>
   <div class="badge"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5 4 3.5 7-2.5 4.5-9.5 9-9.5 9z"/></svg></span><div><b>Private Practice</b><small>You see Dr. Vakili — every visit</small></div></div></div>
  <div><span class="eyebrow">Our Team</span>
   <h2>Your Cardiologist, Your Advocate,<br>Our Expert.</h2>
@@ -596,7 +596,7 @@ def hub_intro(slug):
 def cardgrid(items, base):
     cells=[]
     for t,s in sorted(items, key=lambda x:x[0].lower()):
-        img=page_img(s) or "img/care.jpg"
+        img=page_img(s) or "img/cardio.jpg"
         cells.append(f'''<a class="pcard" href="{base}p/{s}.html"><div class="ph"><img src="{base}{img}" alt="{esc(t)}" loading="lazy"/></div>
    <div class="pb"><h3>{esc(t)}</h3><p>{esc(teaser(s))}</p><span class="more">Learn more <span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></div></a>''')
     return f'<div class="cardgrid">{"".join(cells)}</div>'
@@ -638,7 +638,7 @@ def build_integrative_hub():
 {cta_band(base)}'''
     return page("Integrative Medicine — IV Vitamins & Metabolic Testing | Heart Vein & Vascular",
         "Integrative medicine at Heart Vein & Vascular in Longwood, FL — IV vitamin therapy and advanced metabolic testing to complement your cardiovascular care.",
-        base,"integrative.html",body,og_img="img/care.jpg")
+        base,"integrative.html",body,og_img="img/cardio.jpg")
 
 def cta_band(base):
     return f'''<section class="section soft"><div class="wrap center" style="max-width:620px;margin:0 auto">

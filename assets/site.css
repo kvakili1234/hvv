@@ -396,3 +396,18 @@ footer .fabout{font-size:14px;line-height:1.7;max-width:330px}
 .trustrip .ti:nth-child(2){border-left-color:#6E95D6}
 .trustrip .ti:nth-child(3){border-left-color:#fff}
 .trustrip .ti:nth-child(4){border-left-color:var(--rose)}
+
+/* ===== v11: lighter + livelier (kill dark bars / navy) ===== */
+.topbar{background:#F6F8FC;color:var(--ink);border-bottom:1px solid var(--line)}
+.topbar a{color:var(--muted)}.topbar a:hover{color:var(--rose)}
+.topbar .ph{color:var(--rose)}
+.trustrip{background:var(--blue-soft);border:none;border-bottom:1px solid var(--line)}
+.trustrip .ti{color:var(--ink);border-left:3px solid var(--rose)}
+.trustrip .ti small{color:var(--muted)}
+.trustrip .ti:nth-child(2){border-left-color:var(--blue)}
+.trustrip .ti:nth-child(3){border-left-color:#1FA0A8}
+.trustrip .ti:nth-child(4){border-left-color:var(--rose)}
+.pillar.rose{background:linear-gradient(150deg,#DA372F,#C23232)}
+.pillar.navy{background:linear-gradient(150deg,#4F86D0,#3A6FC0)}
+.pillar.blue{background:linear-gradient(150deg,#20A7AE,#168890)}
+.pillar.ink{background:linear-gradient(150deg,#E0A23B,#CE8420)}
