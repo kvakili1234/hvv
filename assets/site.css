@@ -465,3 +465,9 @@ footer .fabout{font-size:14px;line-height:1.7;max-width:330px}
 .res-card:nth-child(even):after{background:var(--blue-soft);color:var(--blue)}
 .res-card:hover{border-color:var(--rose-tint)}
 .res-card:nth-child(even):hover{border-color:#C9D6EC}
+
+/* ===== v19: neutral dot bullets (no checkmarks on every list item) ===== */
+.proc-body ul li{padding-left:22px}
+.proc-body ul li:before{left:4px;top:10px;width:6px;height:6px;background:var(--rose);background-image:none;opacity:.5}
+.proc-steps>li>ul li{padding-left:22px}
+.proc-steps>li>ul li:before{left:4px;top:10px;width:6px;height:6px;background:var(--rose);background-image:none;opacity:.5}

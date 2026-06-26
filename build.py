@@ -12,7 +12,7 @@ MANI = json.load(open(os.path.join(ROOT,"scrape/img_manifest.json")))
 FAQ = json.load(open(os.path.join(ROOT,"scrape/faq.json")))
 
 SITE = "https://kvakili1234.github.io/hvv"
-ASSET_VER = "18"  # bump to bust phone/browser cache when CSS/JS change
+ASSET_VER = "19"  # bump to bust phone/browser cache when CSS/JS change
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
 ADDR="2170 W State Road 434, Ste 190, Longwood, FL 32779"
 PORTAL="https://health.healow.com/hvv"
@@ -67,8 +67,8 @@ RESOURCES=[("Patient Portal",PORTAL,"ext"),
  ("Accepted Insurance","accepted-insurance","int"),
  ("Cancellation Policy","cancellation-policy","int")]
 
-CAT={"heart":("Heart","heart.html"),"vein":("Vein & Vascular","vein-vascular.html"),
-     "vascular":("Vein & Vascular","vein-vascular.html"),"integrative":("Integrative Medicine","integrative.html")}
+CAT={"heart":("Heart","heart.html"),"vein":("Vein","vein.html"),
+     "vascular":("Vascular","vascular.html"),"integrative":("Integrative Medicine","integrative.html")}
 PROC_CAT={}
 for t,s in HEART: PROC_CAT[s]=("heart",t)
 for t,s in VEIN: PROC_CAT[s]=("vein",t)
@@ -161,15 +161,15 @@ def topbar(base):
 </div></div>'''
 
 def nav(base):
-    heart_dd=navlist(HEART,base); vein_dd=navlist(VEIN+VASC+INFO,base); int_dd=navlist(INTEG,base)
+    heart_dd=navlist(HEART,base); vein_dd=navlist(VEIN+INFO,base); vasc_dd=navlist(VASC,base)
     res_dd=f'<a href="{PORTAL}" target="_blank" rel="noopener">Patient Portal ↗</a>'+ \
            "".join(f'<a href="{base}r/{s}.html">{esc(t)}</a>' for t,s,k in RESOURCES if k=="int")
     return f'''<nav><div class="nav-in">
  <a href="{base}index.html" class="brand"><img src="{base}logo.png" alt="Heart Vein &amp; Vascular"/></a>
  <div class="nav-links">
   <div><span>Heart</span><div class="dd wide"><div class="dh" style="column-span:all">Heart Services</div>{heart_dd}</div></div>
-  <div><span>Vein &amp; Vascular</span><div class="dd wide"><div class="dh" style="column-span:all">Vein, Vascular &amp; Diagnostics</div>{vein_dd}</div></div>
-  <div><span>Integrative</span><div class="dd"><div class="dh">Integrative Medicine</div>{int_dd}</div></div>
+  <div><span>Vein</span><div class="dd wide"><div class="dh" style="column-span:all">Vein Services</div>{vein_dd}</div></div>
+  <div><span>Vascular</span><div class="dd"><div class="dh">Vascular Services</div>{vasc_dd}</div></div>
   <div><span>Patient Resources</span><div class="dd"><div class="dh">For Our Patients</div>{res_dd}</div></div>
   <a class="lnk" href="{base}about.html">Dr. Vakili</a>
   <a class="lnk" href="{base}index.html#reviews">Reviews</a>
@@ -181,8 +181,8 @@ def nav(base):
 <div class="mobnav-bg" onclick="closeMobNav()"></div>
 <div class="mobnav">
  <div class="mn-sec"><div class="mn-head">Heart<span class="ar"></span></div><div class="mn-sub">{heart_dd}</div></div>
- <div class="mn-sec"><div class="mn-head">Vein &amp; Vascular<span class="ar"></span></div><div class="mn-sub">{vein_dd}</div></div>
- <div class="mn-sec"><div class="mn-head">Integrative<span class="ar"></span></div><div class="mn-sub">{int_dd}</div></div>
+ <div class="mn-sec"><div class="mn-head">Vein<span class="ar"></span></div><div class="mn-sub">{vein_dd}</div></div>
+ <div class="mn-sec"><div class="mn-head">Vascular<span class="ar"></span></div><div class="mn-sub">{vasc_dd}</div></div>
  <div class="mn-sec"><div class="mn-head">Patient Resources<span class="ar"></span></div><div class="mn-sub">{res_dd}</div></div>
  <a class="mn-link" href="{base}about.html">Dr. Vakili</a>
  <a class="mn-link" href="{base}index.html#reviews">Reviews</a>
@@ -201,7 +201,7 @@ def footer(base):
    <a class="soc" href="{LINKEDIN}" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8h4V24h-4zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4 0 4.8 2.6 4.8 6.05V24h-4v-7.2c0-1.7 0-3.9-2.4-3.9s-2.7 1.86-2.7 3.78V24H8z"/></svg></a>
   </div>
   <div><h4>Care</h4>
-   <a href="{base}heart.html">Heart Services</a><a href="{base}vein-vascular.html">Vein &amp; Vascular</a>
+   <a href="{base}heart.html">Heart Services</a><a href="{base}vein.html">Vein</a><a href="{base}vascular.html">Vascular</a>
    <a href="{base}integrative.html">Integrative Medicine</a><a href="{base}about.html">Dr. Vakili</a><a href="{base}index.html#reviews">Reviews</a></div>
   <div><h4>Patients</h4>
    <a href="{PORTAL}" target="_blank" rel="noopener">Patient Portal</a><a href="{base}r/patient-forms.html">Patient Forms</a>
@@ -451,8 +451,8 @@ def build_home():
         for pid in LI_POSTS)
     slides=[
      ("Your Heart, Your Health,","Our Focus","Experience advanced cardiovascular testing and treatment in a private, deeply personal setting — where you always see your physician, Dr. Babak Alex Vakili.","heart.html","Explore Heart Care"),
-     ("Your Legs, Your Comfort,","Our Priority","Find relief from vein pain, swelling, and cosmetic concerns with advanced, minimally invasive vein treatments in a calm, private setting.","vein-vascular.html","Explore Vein Care"),
-     ("Your Circulation, Your Strength,","Our Commitment","Advanced vascular diagnostics and treatments to identify, manage, and prevent serious circulatory conditions — expert care in a comfortable environment.","vein-vascular.html","Explore Vascular Care"),
+     ("Your Legs, Your Comfort,","Our Priority","Find relief from vein pain, swelling, and cosmetic concerns with advanced, minimally invasive vein treatments in a calm, private setting.","vein.html","Explore Vein Care"),
+     ("Your Circulation, Your Strength,","Our Commitment","Advanced vascular diagnostics and treatments to identify, manage, and prevent serious circulatory conditions — expert care in a comfortable environment.","vascular.html","Explore Vascular Care"),
      ("Your Cardiologist, Your Advocate,","Our Expert","With over 20 years of experience in Central Florida, Dr. Vakili blends advanced expertise with a deeply personal approach to every patient.","about.html","Meet Dr. Vakili"),
     ]
     sl_html=""
@@ -502,8 +502,8 @@ def build_home():
   <p class="lead">From the heart to the veins to the vascular system — complete diagnostics and treatment by a single, board-certified physician who knows your full history.</p></div>
  <div class="pillars">
   <a class="pillar rose" href="{base}heart.html"><h3>Heart</h3><p>Advanced diagnostics &amp; targeted therapies for cardiovascular disease.</p><span class="go">Explore<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-  <a class="pillar navy" href="{base}vein-vascular.html"><h3>Vein</h3><p>Office-based, minimally invasive care for venous disease.</p><span class="go">Explore<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-  <a class="pillar blue" href="{base}vein-vascular.html"><h3>Vascular</h3><p>Detecting circulation problems early with image-guided therapy.</p><span class="go">Explore<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  <a class="pillar navy" href="{base}vein.html"><h3>Vein</h3><p>Office-based, minimally invasive care for venous disease.</p><span class="go">Explore<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  <a class="pillar blue" href="{base}vascular.html"><h3>Vascular</h3><p>Detecting circulation problems early with image-guided therapy.</p><span class="go">Explore<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
   <a class="pillar ink" href="{base}about.html"><h3>Dr. Vakili</h3><p>20+ years · former Chief of Cardiology</p><span class="go">Meet the physician<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
  </div>
 </div></section>
@@ -525,8 +525,8 @@ def build_home():
  <div class="center" style="max-width:560px;margin:0 auto 30px"><span class="eyebrow" style="justify-content:center">Comprehensive Care</span>
   <h2 style="font-size:38px;margin:16px 0">Three specialties, one physician.</h2></div>
  {svc_block("Heart &amp; Cardiology","Heart","Our Heart Services combine advanced diagnostics and targeted therapies to prevent, find, and treat cardiovascular disease.",HEART[:8],"heart.html","img/cardio.jpg")}
- {svc_block("Vein Care","Vein","Our Vein Services address both the medical and cosmetic impact of venous disease using office-based, minimally invasive care.",VEIN[:8],"vein-vascular.html","img/real_legs.jpg",rev=True)}
- {svc_block("Vascular &amp; Diagnostics","Vascular","Vascular Services focus on detecting circulation problems early and correcting them with image-guided, nonsurgical therapy.",VASC,"vein-vascular.html","img/vascular-art.jpg")}
+ {svc_block("Vein Care","Vein","Our Vein Services address both the medical and cosmetic impact of venous disease using office-based, minimally invasive care.",VEIN[:8],"vein.html","img/real_legs.jpg",rev=True)}
+ {svc_block("Vascular &amp; Diagnostics","Vascular","Vascular Services focus on detecting circulation problems early and correcting them with image-guided, nonsurgical therapy.",VASC,"vascular.html","img/vascular-art.jpg")}
 </div></section>
 
 <section class="section soft"><div class="wrap"><div class="doc-in">
@@ -643,19 +643,32 @@ def build_heart_hub():
 
 def build_vein_hub():
     base=""
-    intro=hub_intro("vein-procedures") or hub_intro("endovenous-services") or "Comfortable, minimally invasive relief from varicose and spider veins, leg swelling and venous disease — plus complete vascular screening and diagnostics."
-    body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <span>Vein &amp; Vascular Services</span></div>
- <span class="tag"><svg style="width:14px;height:14px" viewBox="0 0 24 24"><path d="M6 3v6a6 6 0 0 0 12 0V3"/></svg>Vein · Vascular · Diagnostics</span>
- <h1>Vein &amp; Vascular Services</h1><p class="intro">{esc(intro)}</p></div></header>
+    intro=hub_intro("vein-procedures") or hub_intro("endovenous-services") or "Office-based, minimally invasive relief from varicose and spider veins, leg swelling, and venous disease."
+    body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <span>Vein Services</span></div>
+ <span class="tag">Endovenous Services</span>
+ <h1>Vein Services</h1><p class="intro">{esc(intro)}</p></div></header>
 <section class="section"><div class="wrap">
- <h2 style="font-size:28px;margin-bottom:22px">Vein Treatments</h2>{cardgrid(VEIN, base)}
- <h2 style="font-size:28px;margin:54px 0 22px">Vascular Screening &amp; Diagnostics</h2>{cardgrid(VASC, base)}
+ {cardgrid(VEIN, base)}
  <h2 style="font-size:28px;margin:54px 0 22px">Helpful Information</h2>{cardgrid(INFO, base)}
 </div></section>
 {cta_band(base)}'''
-    return page("Vein & Vascular Services | Heart Vein & Vascular, Longwood FL",
-        "Minimally invasive vein treatment and complete vascular screening at Heart Vein & Vascular in Longwood, FL — sclerotherapy, VenaSeal, ablation, carotid & arterial duplex, AAA screening and more.",
-        base,"vein-vascular.html",body,og_img="img/vascular-art.jpg")
+    return page("Vein Services | Heart Vein & Vascular, Longwood FL",
+        "Minimally invasive vein treatment at Heart Vein & Vascular in Longwood, FL — sclerotherapy, VenaSeal, radiofrequency ablation, phlebectomy, vein mapping and more.",
+        base,"vein.html",body,og_img="img/real_legs.jpg")
+
+def build_vascular_hub():
+    base=""
+    intro=hub_intro("endovascular-services") or hub_intro("vascular-procedures") or "Image-guided vascular screening and diagnostics to detect and manage circulatory conditions early."
+    body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <span>Vascular Services</span></div>
+ <span class="tag">Endovascular Services</span>
+ <h1>Vascular Services</h1><p class="intro">{esc(intro)}</p></div></header>
+<section class="section"><div class="wrap">
+ {cardgrid(VASC, base)}
+</div></section>
+{cta_band(base)}'''
+    return page("Vascular Services | Heart Vein & Vascular, Longwood FL",
+        "Complete vascular screening and diagnostics at Heart Vein & Vascular in Longwood, FL — carotid & arterial duplex, AAA screening, ankle-brachial index, renal and vascular ultrasound.",
+        base,"vascular.html",body,og_img="img/vascular-art.jpg")
 
 def build_integrative_hub():
     base=""
@@ -854,7 +867,8 @@ def main():
     pages={}
     pages["index.html"]=build_home()
     pages["heart.html"]=build_heart_hub()
-    pages["vein-vascular.html"]=build_vein_hub()
+    pages["vein.html"]=build_vein_hub()
+    pages["vascular.html"]=build_vascular_hub()
     pages["integrative.html"]=build_integrative_hub()
     pages["about.html"]=build_about()
     pages["hospital-admissions.html"]=build_simple("hospital-admissions","Hospital Admissions","Hospital Admissions","hospital-admissions.html","Hospital admissions and affiliations for Dr. Babak Alex Vakili — Heart Vein & Vascular, Longwood FL.")
