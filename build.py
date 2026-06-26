@@ -12,7 +12,7 @@ MANI = json.load(open(os.path.join(ROOT,"scrape/img_manifest.json")))
 FAQ = json.load(open(os.path.join(ROOT,"scrape/faq.json")))
 
 SITE = "https://kvakili1234.github.io/hvv"
-ASSET_VER = "12"  # bump to bust phone/browser cache when CSS/JS change
+ASSET_VER = "13"  # bump to bust phone/browser cache when CSS/JS change
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
 ADDR="2170 W State Road 434, Ste 190, Longwood, FL 32779"
 PORTAL="https://health.healow.com/hvv"
@@ -347,32 +347,16 @@ def render_content(slug, base, skip_heads=None, skip_imgs=True):
 def appt_form(base):
     opts="".join(f"<option>{o}</option>" for o in
       ["Reason for visit…","Heart / Cardiology","Vein treatment","Vascular screening","Integrative medicine","Follow-up visit","Something else"])
-    return f'''<div>
- <form class="cform" action="{FORM_ACTION}" method="POST" onsubmit="return submitForm(event)">
-  <div class="form-body">
-   <h3>Request an Appointment</h3><p class="fsub">Tell us a little about you and our office will reach out to confirm.</p>
-   <input type="hidden" name="_subject" value="New appointment request — heartveinvascular.com"/>
-   <input type="text" name="_honey" style="display:none"/>
-   <div class="row">
-    <div class="field"><label for="fn">First name</label><input id="fn" name="First name" required placeholder="First name"/></div>
-    <div class="field"><label for="ln">Last name</label><input id="ln" name="Last name" required placeholder="Last name"/></div>
-   </div>
-   <div class="row">
-    <div class="field"><label for="ph">Phone</label><input id="ph" name="Phone" type="tel" required placeholder="(407) 000-0000"/></div>
-    <div class="field"><label for="em">Email</label><input id="em" name="Email" type="email" required placeholder="you@email.com"/></div>
-   </div>
-   <div class="field"><label for="rs">Reason for visit</label><select id="rs" name="Reason">{opts}</select></div>
-   <div class="field"><label for="ms">Anything we should know? <span style="color:var(--muted);font-weight:400">(optional)</span></label><textarea id="ms" name="Message" placeholder="Briefly describe your symptoms or question"></textarea></div>
-   <button class="btn" type="submit">Request Appointment →</button>
-   <p class="priv">🔒 Your information is private and used only to contact you. Do not include urgent medical details — call 911 for emergencies.</p>
-  </div>
- </form>
- <div class="ok-msg">
-  <div class="big"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
-  <h3>Thank you — request received.</h3>
-  <p>Our office will reach out shortly to confirm your appointment. For anything urgent, please call <a href="tel:+1{PHONE.replace('-','')}" style="color:var(--rose);font-weight:600">{PHONE}</a>.</p>
- </div>
-</div>'''
+    tel="tel:+1"+PHONE.replace('-','')
+    return f'''<div class="callcard">
+  <span class="eyebrow">Schedule a Visit</span>
+  <h3>Call to schedule your visit.</h3>
+  <p class="fsub">To book with Dr. Vakili, just give our office a call — we'll find a time that works for you. And you'll always see Dr. Vakili himself.</p>
+  <a class="callbig" href="{tel}">{PHONE}</a>
+  <div class="callhrs"><b>Monday – Friday</b> · 8:00 AM – 4:30 PM<br>Saturday &amp; Sunday · Closed</div>
+  <a class="btn" href="{tel}"><svg class="icsm" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call {PHONE}</a>
+  <p class="priv">For emergencies, call 911. New patients welcome.</p>
+ </div>'''
 
 def contact_aside(base):
     return f'''<div class="ci-list">
@@ -553,8 +537,8 @@ def build_home():
 
 <section class="section soft" id="contact"><div class="wrap">
  <div class="center" style="max-width:560px;margin:0 auto 40px"><span class="eyebrow" style="justify-content:center">Schedule a Visit</span>
-  <h2 style="font-size:40px;margin:16px 0 8px">Request your appointment.</h2>
-  <p class="lead">Tell us a little about you and our office will reach out to confirm.</p></div>
+  <h2 style="font-size:40px;margin:16px 0 8px">Schedule your visit.</h2>
+  <p class="lead">Give our office a call and we'll find a time that works for you — new patients always welcome.</p></div>
  <div class="c-in">{appt_form(base)}{contact_aside(base)}</div>
 </div></section>
 '''

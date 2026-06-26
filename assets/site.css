@@ -418,3 +418,13 @@ footer .fabout{font-size:14px;line-height:1.7;max-width:330px}
 .pillar.blue{background:linear-gradient(150deg,#36548C,#293f6b)}   /* Vascular - deep blue */
 .pillar.ink{background:linear-gradient(150deg,#A23547,#842C3B)}    /* Dr.V   - deep red */
 .trustrip .ti:nth-child(3){border-left-color:var(--blue)}
+
+/* ===== call-to-schedule panel (replaces online booking form) ===== */
+.callcard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:40px;box-shadow:var(--sh-sm)}
+.callcard h3{font-size:30px;margin:12px 0 12px}
+.callcard .fsub{color:var(--muted);font-size:16.5px;margin-bottom:22px}
+.callcard .callbig{display:block;font-family:'Newsreader',serif;font-size:42px;color:var(--rose);font-weight:600;margin:8px 0 4px;letter-spacing:-.01em}
+.callcard .callhrs{color:var(--muted);font-size:15.5px;margin:16px 0 24px;padding-top:18px;border-top:1px solid var(--line)}
+.callcard .callhrs b{color:var(--head)}
+.callcard .btn{width:100%;justify-content:center;font-size:17px;padding:16px}
+.callcard .priv{font-size:13px;color:var(--muted);margin-top:16px;text-align:center}
