@@ -376,3 +376,23 @@ footer .fabout{font-size:14px;line-height:1.7;max-width:330px}
  .demo{bottom:74px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* ===== v10: vibrant home boxes + trust band (fix bland/too-white) ===== */
+.pillars{gap:18px}
+.pillar{background:#fff;color:#fff;border:none;border-radius:18px;padding:28px 26px;min-height:186px;overflow:hidden;box-shadow:var(--sh-sm)}
+.pillar:before{display:none}
+.pillar.rose{background:linear-gradient(150deg,#DA372F 0%,#AE1B1B 100%)}
+.pillar.navy{background:linear-gradient(150deg,#5C82C4 0%,#3A589A 100%)}
+.pillar.blue{background:linear-gradient(150deg,#27416C 0%,#19273F 100%)}
+.pillar.ink{background:linear-gradient(150deg,#33476E 0%,#161E2E 100%)}
+.pillar h3{color:#fff;font-size:22px;margin:0}
+.pillar p{color:rgba(255,255,255,.9);font-size:14px;margin-top:9px;line-height:1.5;flex:1}
+.pillar .go{color:#fff;margin-top:18px;font-weight:700;opacity:.95}
+.pillar:hover{transform:translateY(-6px);box-shadow:0 22px 46px rgba(23,32,51,.24)}
+/* trust strip -> dark navy band for contrast */
+.trustrip{background:var(--navy);border:none}
+.trustrip .ti{color:#fff;font-weight:700;border-left:3px solid var(--rose)}
+.trustrip .ti small{color:#A6B6CE;font-weight:500}
+.trustrip .ti:nth-child(2){border-left-color:#6E95D6}
+.trustrip .ti:nth-child(3){border-left-color:#fff}
+.trustrip .ti:nth-child(4){border-left-color:var(--rose)}

@@ -12,7 +12,7 @@ MANI = json.load(open(os.path.join(ROOT,"scrape/img_manifest.json")))
 FAQ = json.load(open(os.path.join(ROOT,"scrape/faq.json")))
 
 SITE = "https://kvakili1234.github.io/hvv"
-ASSET_VER = "9"  # bump to bust phone/browser cache when CSS/JS change
+ASSET_VER = "10"  # bump to bust phone/browser cache when CSS/JS change
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
 ADDR="2170 W State Road 434, Ste 190, Longwood, FL 32779"
 PORTAL="https://health.healow.com/hvv"
@@ -174,7 +174,7 @@ def nav(base):
   <a class="lnk" href="{base}about.html">Dr. Vakili</a>
   <a class="lnk" href="{base}index.html#reviews">Reviews</a>
   <a class="lnk" href="{base}contact.html">Contact</a>
-  <a class="btn" href="{base}book.html" style="margin-left:10px;padding:11px 22px">Book Appointment</a>
+  <a class="btn" href="tel:+14079901921" style="margin-left:10px;padding:11px 22px">Call (407) 990-1921</a>
  </div>
  <button class="navtoggle" aria-label="Menu" onclick="toggleMobNav()"><span></span><span></span><span></span></button>
 </div></nav>
@@ -187,7 +187,7 @@ def nav(base):
  <a class="mn-link" href="{base}about.html">Dr. Vakili</a>
  <a class="mn-link" href="{base}index.html#reviews">Reviews</a>
  <a class="mn-link" href="{base}contact.html">Contact</a>
- <a class="btn" href="{base}book.html" onclick="closeMobNav()">Book Appointment</a>
+ <a class="btn" href="tel:+14079901921" onclick="closeMobNav()">Call (407) 990-1921</a>
  <a class="mn-call" href="tel:+1{PHONE.replace('-','')}">📞 {PHONE}</a>
 </div>'''
 
@@ -215,7 +215,7 @@ def footer(base):
  <div class="fbar">© 2026 Heart Vein &amp; Vascular · Babak Alex Vakili, MD, FACC, FSCAI, CPI · Demo redesign for review.</div>
 </footer>
 <div class="mcall"><a class="call" href="tel:+1{PHONE.replace('-','')}"><svg style="width:17px;height:17px" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 3.1 2 2 0 0 1 4.1 1h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Call</a>
-<a class="book" href="{base}book.html">Book Appointment</a></div>
+<a class="book" href="tel:+14079901921">Call (407) 990-1921</a></div>
 <script src="{base}assets/site.js?v={ASSET_VER}"></script>
 </body></html>'''
 
@@ -432,7 +432,7 @@ def build_home():
         sl_html+=f'''<div class="slide{on}"><span class="eyebrow">Heart · Vein · Vascular</span>
       <h1>{esc(a)}<br><span class="accent">{esc(b)}</span></h1>
       <p class="sub">{esc(sub)}</p>
-      <div class="hero-cta"><a class="btn" href="{base}book.html">Book an Appointment</a><a class="btn ghost" href="{base}{href}">{esc(btn)}</a></div>
+      <div class="hero-cta"><a class="btn" href="tel:+14079901921">Call (407) 990-1921</a><a class="btn ghost" href="{base}{href}">{esc(btn)}</a></div>
       </div>'''
     hero_imgs=["img/family.jpg","img/real_legs.jpg","img/active.jpg","img/care.jpg"]
     himg="".join(f'<img class="{"on" if i==0 else ""}" src="{base}{s}" alt="" {"" if i==0 else "loading=lazy"}/>' for i,s in enumerate(hero_imgs))
@@ -645,7 +645,7 @@ def cta_band(base):
  <span class="eyebrow" style="justify-content:center">Ready When You Are</span>
  <h2 style="font-size:34px;margin:16px 0 10px">Have a question or ready to be seen?</h2>
  <p class="lead" style="margin-bottom:26px">Request an appointment and our office will reach out to confirm. A physician referral is required for diagnostic services.</p>
- <div style="display:flex;gap:13px;justify-content:center;flex-wrap:wrap"><a class="btn" href="{base}book.html">Book an Appointment</a><a class="btn ghost" href="tel:+1{PHONE.replace('-','')}">Call {PHONE}</a></div>
+ <div style="display:flex;gap:13px;justify-content:center;flex-wrap:wrap"><a class="btn" href="tel:+14079901921">Call (407) 990-1921</a><a class="btn ghost" href="tel:+1{PHONE.replace('-','')}">Call {PHONE}</a></div>
 </div></section>'''
 
 # ---------------- procedure detail ----------------
@@ -688,7 +688,7 @@ def build_procedure(slug):
   <div class="callout"><b>Please note:</b> A physician referral is required for all diagnostic services. Have questions about whether this is right for you? <a href="{base}contact.html" style="color:var(--rose-d);font-weight:600;text-decoration:underline">Contact our office</a> or call <a href="tel:+1{PHONE.replace('-','')}" style="color:var(--rose-d);font-weight:600">{PHONE}</a>.</div>
  </div>
  <aside><div class="sidecard"><h4>Schedule this service</h4><p>Request an appointment and our office will reach out to confirm.</p>
-  <a class="btn" href="{base}book.html">Book Appointment</a>
+  <a class="btn" href="tel:+14079901921">Call (407) 990-1921</a>
   <a class="ph" href="tel:+1{PHONE.replace('-','')}"><svg style="width:16px;height:16px" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 3.1 2 2 0 0 1 4.1 1h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>{PHONE}</a>
   <div class="hours"><b>Office Hours</b><br>Mon–Fri 8:00 AM – 4:30 PM<br>Sat &amp; Sun: Closed<br><br><b>Address</b><br>2170 W State Road 434, Ste 190<br>Longwood, FL 32779</div></div></aside>
 </div></div></section>
@@ -711,7 +711,7 @@ def build_about():
 <section><div class="wrap"><div class="proc">
  <div class="proc-body"><div class="proc-figure" style="max-height:none"><img src="{base}{img}" alt="Dr. Babak Alex Vakili"/></div>{body_blocks}</div>
  <aside><div class="sidecard"><h4>Book with Dr. Vakili</h4><p>Request an appointment and our office will reach out to confirm.</p>
-  <a class="btn" href="{base}book.html">Book Appointment</a>
+  <a class="btn" href="tel:+14079901921">Call (407) 990-1921</a>
   <a class="ph" href="tel:+1{PHONE.replace('-','')}">{PHONE}</a>
   <div class="hours"><b>Quick links</b><br><a href="{base}hospital-admissions.html" style="color:var(--rose)">Hospital Admissions →</a><br><a href="{base}office-location.html" style="color:var(--rose)">Office Location →</a><br><a href="{LINKEDIN}" target="_blank" rel="noopener" style="color:var(--rose)">LinkedIn ↗</a></div></div></aside>
 </div></div></section>
@@ -726,7 +726,7 @@ def build_simple(slug, title, label, canonical, desc):
     body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <a href="{base}about.html">Dr. Vakili</a> › <span>{esc(label)}</span></div>
  <span class="tag">Dr. Vakili</span><h1>{esc(title)}</h1></div></header>
 <section><div class="wrap"><div class="proc"><div class="proc-body">{content}</div>
- <aside><div class="sidecard"><h4>Questions?</h4><p>Our office is happy to help.</p><a class="btn" href="{base}book.html">Book Appointment</a><a class="ph" href="tel:+1{PHONE.replace('-','')}">{PHONE}</a></div></aside>
+ <aside><div class="sidecard"><h4>Questions?</h4><p>Our office is happy to help.</p><a class="btn" href="tel:+14079901921">Call (407) 990-1921</a><a class="ph" href="tel:+1{PHONE.replace('-','')}">{PHONE}</a></div></aside>
 </div></div></section>{cta_band(base)}'''
     return page(f"{title} | Heart Vein & Vascular", desc, base, canonical, body)
 
@@ -796,13 +796,13 @@ def build_contact():
 
 def build_book():
     base=""
-    body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <span>Book an Appointment</span></div>
+    body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <span>Call (407) 990-1921</span></div>
  <span class="tag">Schedule a Visit</span><h1>Book your appointment.</h1><p class="intro">Online self-scheduling is coming soon. In the meantime, request a visit below or call us — our office will confirm a time that works for you.</p></div></header>
 <section class="section"><div class="wrap">
  <div class="callout" style="max-width:760px;margin:0 auto 36px;text-align:center"><b>📅 Online booking is on the way.</b> &nbsp;We&rsquo;re integrating real-time self-scheduling. For now, use the request form below or call <a href="tel:+1{PHONE.replace('-','')}" style="color:var(--rose-d);font-weight:700">{PHONE}</a> — existing patients can also book through the <a href="{PORTAL}" target="_blank" rel="noopener" style="color:var(--rose-d);font-weight:700">Patient Portal ↗</a>.</div>
  <div class="c-in">{appt_form(base)}{contact_aside(base)}</div>
 </div></section>'''
-    return page("Book an Appointment | Heart Vein & Vascular, Longwood FL",
+    return page("Call (407) 990-1921 | Heart Vein & Vascular, Longwood FL",
         "Book an appointment with Dr. Babak Alex Vakili at Heart Vein & Vascular in Longwood, FL. Request a visit online or call (407) 990-1921.",
         base,"book.html",body)
 
