@@ -12,7 +12,7 @@ MANI = json.load(open(os.path.join(ROOT,"scrape/img_manifest.json")))
 FAQ = json.load(open(os.path.join(ROOT,"scrape/faq.json")))
 
 SITE = "https://kvakili1234.github.io/hvv"
-ASSET_VER = "7"  # bump to bust phone/browser cache when CSS/JS change
+ASSET_VER = "8"  # bump to bust phone/browser cache when CSS/JS change
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
 ADDR="2170 W State Road 434, Ste 190, Longwood, FL 32779"
 PORTAL="https://health.healow.com/hvv"
@@ -415,18 +415,11 @@ def reviews_carousel(base):
 # ---------------- HOME ----------------
 def build_home():
     base=""
-    # Dr. Vakili's real LinkedIn post topics -> clean static cards (reliable; link to his profile)
-    li_link=LINKEDIN+"recent-activity/all/"
-    LI_POSTS=[("Jun 2026","RNA Splicing & Cardiovascular Disease"),
-              ("Mar 2026","2026 ACC/AHA Dyslipidemia Guideline"),
-              ("Feb 2026","Anticoagulation After Afib Ablation")]
-    li_in="<svg viewBox='0 0 24 24' fill='#0A66C2' stroke='none'><path d='M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8h4V24h-4zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4 0 4.8 2.6 4.8 6.05V24h-4v-7.2c0-1.7 0-3.9-2.4-3.9s-2.7 1.86-2.7 3.78V24H8z'/></svg>"
+    # Dr. Vakili's REAL LinkedIn posts (activity IDs from his live site) — embedded so the actual post shows
+    LI_POSTS=["7396940650752987136","7396424270551265281","7395717728776495105"]
     li_embeds="".join(
-        f'<a class="li-card" href="{li_link}" target="_blank" rel="noopener">'
-        f'<div class="li-tag">{li_in}<span>Insight</span></div>'
-        f'<div class="dt">{dt}</div><h3>{esc(t)}</h3>'
-        f'<span class="rd">Read on LinkedIn <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>'
-        for dt,t in LI_POSTS)
+        f'<div class="li-embed"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:{pid}" height="540" width="100%" frameborder="0" allowfullscreen title="Dr. Vakili LinkedIn post" loading="lazy"></iframe></div>'
+        for pid in LI_POSTS)
     slides=[
      ("Your Heart, Your Health,","Our Focus","Experience advanced cardiovascular testing and treatment in a private, deeply personal setting — where you always see your physician, Dr. Babak Alex Vakili.","heart.html","Explore Heart Care"),
      ("Your Legs, Your Comfort,","Our Priority","Find relief from vein pain, swelling, and cosmetic concerns with advanced, minimally invasive vein treatments in a calm, private setting.","vein-vascular.html","Explore Vein Care"),

@@ -209,6 +209,8 @@ body.mnav-open .mobnav-bg{opacity:1;visibility:visible}
 .li-card .rd{margin-top:18px;font-size:13px;font-weight:700;color:#0A66C2;display:inline-flex;align-items:center;gap:6px}
 .li-card .rd svg{width:13px;height:13px;transition:.2s}
 .li-card:hover .rd svg{transform:translate(2px,-2px)}
+.li-embed{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--sh-sm)}
+.li-embed iframe{display:block;width:100%;border:0;min-height:540px}
 .li-btn{background:#0A66C2;color:#fff;border-radius:9px;padding:11px 19px;font-weight:600;font-size:14px;display:inline-flex;gap:8px;align-items:center}
 .li-btn:hover{background:#08518f;color:#fff}
 
