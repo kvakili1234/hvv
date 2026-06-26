@@ -497,3 +497,9 @@ footer .fabout{font-size:14px;line-height:1.7;max-width:330px}
 .sched-note span{display:block;margin-top:6px;font-size:14px;color:var(--muted)}
 /* v21: faq + steps full-width to match procedure content */
 .proc-solo .faqlist{max-width:none;margin:0}
+
+/* ===== v22: procedure hero image floats beside the intro, content full-width below ===== */
+.proc-solo .proc-figure{float:right;width:42%;max-width:430px;margin:4px 0 24px 42px;max-height:none}
+.proc-solo .proc-figure.inset{max-width:430px}
+.proc-solo h2,.proc-solo .proc-steps,.proc-solo .faqlist,.proc-solo>ol,.proc-solo .callout,.proc-solo .sched-note,.proc-solo .proc-img{clear:both}
+@media(max-width:760px){.proc-solo .proc-figure{float:none;width:100%;max-width:520px;margin:0 0 26px}}
