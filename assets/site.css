@@ -428,3 +428,15 @@ footer .fabout{font-size:14px;line-height:1.7;max-width:330px}
 .callcard .callhrs b{color:var(--head)}
 .callcard .btn{width:100%;justify-content:center;font-size:17px;padding:16px}
 .callcard .priv{font-size:13px;color:var(--muted);margin-top:16px;text-align:center}
+
+/* ===== v14: patient-resource cards redesign (arrow-circle, red/blue) ===== */
+.res-grid{gap:18px}
+.res-card{display:block;padding:28px 70px 28px 28px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:var(--sh-sm);transition:.22s;position:relative}
+.res-card h4{font-size:18.5px;margin-bottom:6px;color:var(--head)}
+.res-card p{font-size:14.5px;color:var(--muted);line-height:1.5}
+.res-card:after{content:"→";position:absolute;top:50%;right:24px;margin-top:-19px;width:38px;height:38px;line-height:36px;text-align:center;border-radius:50%;background:var(--rose-soft);color:var(--rose);font-weight:700;font-size:17px;opacity:1;transform:none;transition:.22s}
+.res-card:nth-child(even):after{background:var(--blue-soft);color:var(--blue)}
+.res-card:hover{transform:translateY(-5px);box-shadow:var(--sh);border-color:var(--rose-tint)}
+.res-card:hover:after{background:var(--rose);color:#fff}
+.res-card:nth-child(even):hover{border-color:#C9D6EC}
+.res-card:nth-child(even):hover:after{background:var(--blue);color:#fff}

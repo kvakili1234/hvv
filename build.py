@@ -12,7 +12,7 @@ MANI = json.load(open(os.path.join(ROOT,"scrape/img_manifest.json")))
 FAQ = json.load(open(os.path.join(ROOT,"scrape/faq.json")))
 
 SITE = "https://kvakili1234.github.io/hvv"
-ASSET_VER = "13"  # bump to bust phone/browser cache when CSS/JS change
+ASSET_VER = "14"  # bump to bust phone/browser cache when CSS/JS change
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
 ADDR="2170 W State Road 434, Ste 190, Longwood, FL 32779"
 PORTAL="https://health.healow.com/hvv"
