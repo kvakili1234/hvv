@@ -472,9 +472,9 @@ def build_home():
   <h2 style="font-size:40px;margin:16px 0 8px">Everything we offer, one trusted practice.</h2>
   <p class="lead">From the heart to the veins to the vascular system — complete diagnostics and treatment by a single, board-certified physician who knows your full history.</p></div>
  <div class="pillars">
-  <a class="pillar rose" href="{base}heart.html"><span class="pic"><svg viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span><h3>Heart</h3><p>Diagnostics, imaging &amp; interventional cardiology</p><span class="go">Explore<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-  <a class="pillar navy" href="{base}vein-vascular.html"><span class="pic"><svg viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C4 11.1 5 13 5 15a7 7 0 0 0 7 7Z"/></svg></span><h3>Vein</h3><p>Minimally invasive relief for varicose &amp; spider veins</p><span class="go">Explore<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-  <a class="pillar blue" href="{base}vein-vascular.html"><span class="pic"><svg viewBox="0 0 24 24"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg></span><h3>Vascular</h3><p>Screening &amp; treatment of circulatory conditions</p><span class="go">Explore<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  <a class="pillar rose" href="{base}heart.html"><span class="pic"><svg viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span><h3>Heart</h3><p>Advanced diagnostics &amp; targeted therapies for cardiovascular disease.</p><span class="go">Explore<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  <a class="pillar navy" href="{base}vein-vascular.html"><span class="pic"><svg viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C4 11.1 5 13 5 15a7 7 0 0 0 7 7Z"/></svg></span><h3>Vein</h3><p>Office-based, minimally invasive care for venous disease.</p><span class="go">Explore<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  <a class="pillar blue" href="{base}vein-vascular.html"><span class="pic"><svg viewBox="0 0 24 24"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg></span><h3>Vascular</h3><p>Detecting circulation problems early with image-guided therapy.</p><span class="go">Explore<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
   <a class="pillar ink" href="{base}about.html"><span class="pic"><svg viewBox="0 0 24 24"><path d="M11 2v2M5 2v2M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg></span><h3>Dr. Vakili</h3><p>20+ years · former Chief of Cardiology</p><span class="go">Meet the physician<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
  </div>
 </div></section>
@@ -496,9 +496,9 @@ def build_home():
 <section class="section"><div class="wrap">
  <div class="center" style="max-width:560px;margin:0 auto 30px"><span class="eyebrow" style="justify-content:center">Comprehensive Care</span>
   <h2 style="font-size:38px;margin:16px 0">Three specialties, one physician.</h2></div>
- {svc_block("Heart &amp; Cardiology","Heart","Advanced cardiovascular diagnostics, monitoring and interventional treatment — from prevention to life-saving intervention.",HEART[:8],"heart.html","img/cardio.jpg")}
- {svc_block("Vein Care","Vein","Comfortable, minimally invasive relief from varicose &amp; spider veins, leg swelling and venous disease — so your legs look and feel their best.",VEIN[:8],"vein-vascular.html","img/real_legs.jpg",rev=True)}
- {svc_block("Vascular &amp; Diagnostics","Vascular","Comprehensive screening, diagnosis &amp; treatment of circulatory and vascular conditions — identifying and managing problems early.",VASC,"vein-vascular.html","img/vascular-art.jpg")}
+ {svc_block("Heart &amp; Cardiology","Heart","Our Heart Services combine advanced diagnostics and targeted therapies to prevent, find, and treat cardiovascular disease.",HEART[:8],"heart.html","img/cardio.jpg")}
+ {svc_block("Vein Care","Vein","Our Vein Services address both the medical and cosmetic impact of venous disease using office-based, minimally invasive care.",VEIN[:8],"vein-vascular.html","img/real_legs.jpg",rev=True)}
+ {svc_block("Vascular &amp; Diagnostics","Vascular","Vascular Services focus on detecting circulation problems early and correcting them with image-guided, nonsurgical therapy.",VASC,"vein-vascular.html","img/vascular-art.jpg")}
 </div></section>
 
 <section class="section soft"><div class="wrap"><div class="doc-in">
