@@ -628,8 +628,8 @@ def cta_band(base):
     return f'''<section class="section soft"><div class="wrap center" style="max-width:620px;margin:0 auto">
  <span class="eyebrow" style="justify-content:center">Ready When You Are</span>
  <h2 style="font-size:34px;margin:16px 0 10px">Have a question or ready to be seen?</h2>
- <p class="lead" style="margin-bottom:26px">Request an appointment and our office will reach out to confirm. A physician referral is required for diagnostic services.</p>
- <div style="display:flex;gap:13px;justify-content:center;flex-wrap:wrap"><a class="btn" href="tel:+14079901921">Call (407) 990-1921</a><a class="btn ghost" href="tel:+1{PHONE.replace('-','')}">Call {PHONE}</a></div>
+ <p class="lead" style="margin-bottom:26px">Call our office and we'll find a time that works for you. A physician referral is required for diagnostic services.</p>
+ <div style="display:flex;gap:13px;justify-content:center;flex-wrap:wrap"><a class="btn" href="tel:+14079901921">Call (407) 990-1921</a><a class="btn ghost" href="{PORTAL}" target="_blank" rel="noopener">Patient Portal ↗</a></div>
 </div></section>'''
 
 # ---------------- procedure detail ----------------
@@ -671,7 +671,7 @@ def build_procedure(slug):
  <div class="proc-body">{fig}{content}
   <div class="callout"><b>Please note:</b> A physician referral is required for all diagnostic services. Have questions about whether this is right for you? <a href="{base}contact.html" style="color:var(--rose-d);font-weight:600;text-decoration:underline">Contact our office</a> or call <a href="tel:+1{PHONE.replace('-','')}" style="color:var(--rose-d);font-weight:600">{PHONE}</a>.</div>
  </div>
- <aside><div class="sidecard"><h4>Schedule this service</h4><p>Request an appointment and our office will reach out to confirm.</p>
+ <aside><div class="sidecard"><h4>Schedule this service</h4><p>Call our office and we'll find a time that works for you.</p>
   <a class="btn" href="tel:+14079901921">Call (407) 990-1921</a>
   <a class="ph" href="tel:+1{PHONE.replace('-','')}"><svg style="width:16px;height:16px" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 3.1 2 2 0 0 1 4.1 1h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>{PHONE}</a>
   <div class="hours"><b>Office Hours</b><br>Mon–Fri 8:00 AM – 4:30 PM<br>Sat &amp; Sun: Closed<br><br><b>Address</b><br>2170 W State Road 434, Ste 190<br>Longwood, FL 32779</div></div></aside>
@@ -694,7 +694,7 @@ def build_about():
  <p class="intro">Distinguished interventional cardiologist with subspecialty certifications in vascular medicine and venous &amp; lymphatic disorders — in private practice in the Orlando area since 2002.</p></div></header>
 <section><div class="wrap"><div class="proc">
  <div class="proc-body"><div class="proc-figure" style="max-height:none"><img src="{base}{img}" alt="Dr. Babak Alex Vakili"/></div>{body_blocks}</div>
- <aside><div class="sidecard"><h4>Book with Dr. Vakili</h4><p>Request an appointment and our office will reach out to confirm.</p>
+ <aside><div class="sidecard"><h4>Call to schedule</h4><p>Call our office and we'll find a time that works for you.</p>
   <a class="btn" href="tel:+14079901921">Call (407) 990-1921</a>
   <a class="ph" href="tel:+1{PHONE.replace('-','')}">{PHONE}</a>
   <div class="hours"><b>Quick links</b><br><a href="{base}hospital-admissions.html" style="color:var(--rose)">Hospital Admissions →</a><br><a href="{base}office-location.html" style="color:var(--rose)">Office Location →</a><br><a href="{LINKEDIN}" target="_blank" rel="noopener" style="color:var(--rose)">LinkedIn ↗</a></div></div></aside>
@@ -772,7 +772,7 @@ def build_resources_hub():
 def build_contact():
     base=""
     body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <span>Contact</span></div>
- <span class="tag">Get In Touch</span><h1>Contact &amp; appointments.</h1><p class="intro">Request an appointment below, or reach our office directly. We&rsquo;re here Monday through Friday, 8:00 AM – 4:30 PM.</p></div></header>
+ <span class="tag">Get In Touch</span><h1>Contact &amp; appointments.</h1><p class="intro">Call our office to schedule, or reach us directly. We&rsquo;re here Monday through Friday, 8:00 AM – 4:30 PM.</p></div></header>
 <section class="section"><div class="wrap"><div class="c-in">{appt_form(base)}{contact_aside(base)}</div></div></section>'''
     return page("Contact Heart Vein & Vascular | Longwood, FL · (407) 990-1921",
         "Contact Heart Vein & Vascular in Longwood, FL. Call (407) 990-1921 or request an appointment online. 2170 W State Road 434, Ste 190, Longwood, FL 32779.",
@@ -781,13 +781,13 @@ def build_contact():
 def build_book():
     base=""
     body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <span>Call (407) 990-1921</span></div>
- <span class="tag">Schedule a Visit</span><h1>Book your appointment.</h1><p class="intro">Online self-scheduling is coming soon. In the meantime, request a visit below or call us — our office will confirm a time that works for you.</p></div></header>
+ <span class="tag">Schedule a Visit</span><h1>Schedule your visit.</h1><p class="intro">To book with Dr. Vakili, please call our office — we'll find a time that works for you.</p></div></header>
 <section class="section"><div class="wrap">
  <div class="callout" style="max-width:760px;margin:0 auto 36px;text-align:center"><b>📅 Online booking is on the way.</b> &nbsp;We&rsquo;re integrating real-time self-scheduling. For now, use the request form below or call <a href="tel:+1{PHONE.replace('-','')}" style="color:var(--rose-d);font-weight:700">{PHONE}</a> — existing patients can also book through the <a href="{PORTAL}" target="_blank" rel="noopener" style="color:var(--rose-d);font-weight:700">Patient Portal ↗</a>.</div>
  <div class="c-in">{appt_form(base)}{contact_aside(base)}</div>
 </div></section>'''
     return page("Call (407) 990-1921 | Heart Vein & Vascular, Longwood FL",
-        "Book an appointment with Dr. Babak Alex Vakili at Heart Vein & Vascular in Longwood, FL. Request a visit online or call (407) 990-1921.",
+        "Book an appointment with Dr. Babak Alex Vakili at Heart Vein & Vascular in Longwood, FL. Call (407) 990-1921 to schedule a visit.",
         base,"book.html",body)
 
 def build_shop():
