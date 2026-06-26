@@ -12,7 +12,7 @@ MANI = json.load(open(os.path.join(ROOT,"scrape/img_manifest.json")))
 FAQ = json.load(open(os.path.join(ROOT,"scrape/faq.json")))
 
 SITE = "https://kvakili1234.github.io/hvv"
-ASSET_VER = "17"  # bump to bust phone/browser cache when CSS/JS change
+ASSET_VER = "18"  # bump to bust phone/browser cache when CSS/JS change
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
 ADDR="2170 W State Road 434, Ste 190, Longwood, FL 32779"
 PORTAL="https://health.healow.com/hvv"
@@ -275,6 +275,41 @@ def parse_steps_para(text):
         steps.append((title, subitems)); i+=2
     return steps
 
+# reflow run-on "structured" paragraphs (Title: – Label: text – ... / 1. Step: – ...) into clean lists + step boxes
+def _fix_apos(t):
+    return re.sub(r"(\w)\?(s|ll|t|re|ve|d|m)\b", r"\1'\2", t)
+def is_structured(t):
+    return t.count(' – ')>=2 or len(re.findall(r'(?:^|[.:])\s*\d+\.\s+[A-Z]', t))>=2
+def _bold_label(s):
+    s=s.strip()
+    m=re.match(r'([^:]{2,46}):\s*(.+)', s)
+    if m: return f'<b>{esc(deshout_words(m.group(1)))}:</b> {esc(m.group(2))}'
+    return esc(s)
+def reflow_structured(text):
+    t=_fix_apos(text).strip()
+    t=re.sub(r'(^|[.:])\s+(\d+)\.\s+(?=[A-Z])', r'\1|NUM|\2. ', t)
+    t=re.sub(r'^(\d+)\.\s+(?=[A-Z])', r'|NUM|\1. ', t)
+    groups=t.split('|NUM|')
+    intro=groups[0].strip(); numbered=[g.strip() for g in groups[1:] if g.strip()]
+    def split_dash(seg):
+        parts=re.split(r'\s+–\s+', seg)
+        return parts[0].strip(), [p.strip() for p in parts[1:] if p.strip()]
+    out=[]
+    ih,isubs=split_dash(intro)
+    if ih:
+        out.append(f'<p><b>{esc(deshout_words(ih.rstrip(":")))}</b></p>' if ih.rstrip().endswith(':') and len(ih)<90 else f'<p>{esc(deshout_words(ih))}</p>')
+    if isubs:
+        out.append('<ul>'+''.join(f'<li>{_bold_label(s)}</li>' for s in isubs)+'</ul>')
+    if numbered:
+        steps=''
+        for g in numbered:
+            g=re.sub(r'^\d+\.\s*','',g)
+            h,subs=split_dash(g)
+            sub=('<ul>'+''.join(f'<li>{_bold_label(s)}</li>' for s in subs)+'</ul>') if subs else ''
+            steps+=f"<li><span class='st'>{esc(deshout_words(h.rstrip(':')))}</span>{sub}</li>"
+        out.append(f"<ol class='proc-steps'>{steps}</ol>")
+    return ''.join(out)
+
 # render cleaned content blocks into HTML (paragraphs, lists, numbered steps, sub-headings)
 def render_content(slug, base, skip_heads=None, skip_imgs=True):
     skip_heads = skip_heads or set()
@@ -333,6 +368,8 @@ def render_content(slug, base, skip_heads=None, skip_imgs=True):
             if t.rstrip(":. ").lower() in skipset: continue
             if strip_contact and CONTACT_RE.match(t): continue
             if re.match(r'(?i)^\s*click\s+here', t): continue
+            if is_structured(t):  # run-on "Title: – Label: text" / numbered -> clean lists + step boxes
+                flush(); parts.append(reflow_structured(t)); continue
             if re.match(r'^\d{1,2}\.\s', t):  # numbered instruction list
                 flush_ul(); steps.extend(parse_steps_para(t)); continue
             flush_steps()
@@ -680,7 +717,6 @@ def build_procedure(slug):
  </div>
  <aside><div class="sidecard"><h4>Schedule this service</h4><p>Call our office and we'll find a time that works for you.</p>
   <a class="btn" href="tel:+14079901921">Call (407) 990-1921</a>
-  <a class="ph" href="tel:+1{PHONE.replace('-','')}"><svg style="width:16px;height:16px" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 3.1 2 2 0 0 1 4.1 1h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>{PHONE}</a>
   <div class="hours"><b>Office Hours</b><br>Mon–Fri 8:00 AM – 4:30 PM<br>Sat &amp; Sun: Closed<br><br><b>Address</b><br>2170 W State Road 434, Ste 190<br>Longwood, FL 32779</div></div></aside>
 </div></div></section>
 <section class="section soft related"><div class="wrap"><h2>Related {esc(cat_label.split(" ")[0])} services</h2><p class="lead center" style="margin-bottom:34px">More ways we care for you under one roof.</p>{related_cards(slug, base, cat)}</div></section>'''
@@ -703,7 +739,6 @@ def build_about():
  <div class="proc-body"><div class="proc-figure" style="max-height:none"><img src="{base}{img}" alt="Dr. Babak Alex Vakili"/></div>{body_blocks}</div>
  <aside><div class="sidecard"><h4>Call to schedule</h4><p>Call our office and we'll find a time that works for you.</p>
   <a class="btn" href="tel:+14079901921">Call (407) 990-1921</a>
-  <a class="ph" href="tel:+1{PHONE.replace('-','')}">{PHONE}</a>
   <div class="hours"><b>Quick links</b><br><a href="{base}hospital-admissions.html" style="color:var(--rose)">Hospital Admissions →</a><br><a href="{base}office-location.html" style="color:var(--rose)">Office Location →</a><br><a href="{LINKEDIN}" target="_blank" rel="noopener" style="color:var(--rose)">LinkedIn ↗</a></div></div></aside>
 </div></div></section>
 {cta_band(base)}'''
@@ -717,7 +752,7 @@ def build_simple(slug, title, label, canonical, desc):
     body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <a href="{base}about.html">Dr. Vakili</a> › <span>{esc(label)}</span></div>
  <span class="tag">Dr. Vakili</span><h1>{esc(title)}</h1></div></header>
 <section><div class="wrap"><div class="proc"><div class="proc-body">{content}</div>
- <aside><div class="sidecard"><h4>Questions?</h4><p>Our office is happy to help.</p><a class="btn" href="tel:+14079901921">Call (407) 990-1921</a><a class="ph" href="tel:+1{PHONE.replace('-','')}">{PHONE}</a></div></aside>
+ <aside><div class="sidecard"><h4>Questions?</h4><p>Our office is happy to help.</p><a class="btn" href="tel:+14079901921">Call (407) 990-1921</a></div></aside>
 </div></div></section>{cta_band(base)}'''
     return page(f"{title} | Heart Vein & Vascular", desc, base, canonical, body)
 
