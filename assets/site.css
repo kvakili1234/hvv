@@ -440,3 +440,15 @@ footer .fabout{font-size:14px;line-height:1.7;max-width:330px}
 .res-card:hover:after{background:var(--rose);color:#fff}
 .res-card:nth-child(even):hover{border-color:#C9D6EC}
 .res-card:nth-child(even):hover:after{background:var(--blue);color:#fff}
+
+/* ===== v16: stat boxes pop + resource cards tinted (match brand) ===== */
+.stat{background:#fff;border:1px solid var(--line);border-left:3px solid var(--rose);box-shadow:var(--sh-sm)}
+.statbox .stat:nth-child(even){border-left-color:var(--blue)}
+/* resource cards -> soft red/blue tints to match the colorful theme */
+.res-card{background:var(--rose-soft);border:1px solid transparent;box-shadow:none}
+.res-card:nth-child(even){background:var(--blue-soft)}
+.res-card:after{background:#fff;color:var(--rose)}
+.res-card:nth-child(even):after{background:#fff;color:var(--blue)}
+.res-card:hover{border-color:transparent;box-shadow:var(--sh);transform:translateY(-5px)}
+.res-card:hover:after{background:var(--rose);color:#fff}
+.res-card:nth-child(even):hover:after{background:var(--blue);color:#fff}

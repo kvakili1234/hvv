@@ -12,7 +12,7 @@ MANI = json.load(open(os.path.join(ROOT,"scrape/img_manifest.json")))
 FAQ = json.load(open(os.path.join(ROOT,"scrape/faq.json")))
 
 SITE = "https://kvakili1234.github.io/hvv"
-ASSET_VER = "14"  # bump to bust phone/browser cache when CSS/JS change
+ASSET_VER = "15"  # bump to bust phone/browser cache when CSS/JS change
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
 ADDR="2170 W State Road 434, Ste 190, Longwood, FL 32779"
 PORTAL="https://health.healow.com/hvv"
@@ -464,8 +464,7 @@ def build_home():
 </div></section>
 
 <section class="section soft"><div class="wrap"><div class="split">
- <div class="imgwrap"><img src="{base}drvakili.png" alt="Dr. Babak Alex Vakili" loading="lazy"/>
-  <div class="badge"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5 6 5c2 0 3 1 4 2.5C11 6 12 5 14 5c3.5 0 5 4 3.5 7-2.5 4.5-9.5 9-9.5 9z"/></svg></span><div><b>Private Practice</b><small>You see Dr. Vakili — every visit</small></div></div></div>
+ <div class="imgwrap"><img src="{base}drvakili.png" alt="Dr. Babak Alex Vakili" loading="lazy"/></div>
  <div><span class="eyebrow">Our Team</span>
   <h2>Your Cardiologist, Your Advocate,<br>Our Expert.</h2>
   <p class="lead">Dr. Babak Alex Vakili, is a distinguished interventional cardiologist with additional subspecialty certifications in vascular medicine as well as venous and lymphatic disorders. Dr. Vakili has been in private practice in the Orlando area since 2002 and brings over two decades of unparalleled expertise and dedication to cardiovascular medicine, setting him apart from his peers in the field.</p>
