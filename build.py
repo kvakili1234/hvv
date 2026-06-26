@@ -12,7 +12,7 @@ MANI = json.load(open(os.path.join(ROOT,"scrape/img_manifest.json")))
 FAQ = json.load(open(os.path.join(ROOT,"scrape/faq.json")))
 
 SITE = "https://kvakili1234.github.io/hvv"
-ASSET_VER = "23"  # bump to bust phone/browser cache when CSS/JS change
+ASSET_VER = "24"  # bump to bust phone/browser cache when CSS/JS change
 PHONE="407-990-1921"; TOLL="855-537-4411"; EMAIL="support@heartveinvascular.com"
 ADDR="2170 W State Road 434, Ste 190, Longwood, FL 32779"
 PORTAL="https://health.healow.com/hvv"
@@ -727,7 +727,7 @@ def build_procedure(slug):
 <section class="section"><div class="wrap">
  <div class="proc-body proc-solo">{fig}{content}
   <div class="callout"><b>Please note:</b> A physician referral is required for all diagnostic services.</div>
-  <div class="sched-note"><b>Schedule this service —</b> call our office at <a href="tel:+14079901921">(407) 990-1921</a> and we'll find a time that works for you.<span>Mon–Fri 8:00 AM – 4:30 PM &nbsp;·&nbsp; 2170 W State Road 434, Suite 190, Longwood, FL 32779</span></div>
+  <div class="sched-note"><span class="sched-ic"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span><div class="sched-txt"><b>Schedule this service</b><p>Call our office at <a href="tel:+14079901921">(407)&nbsp;990-1921</a> and we'll find a time that works for you.</p><span class="sched-hrs">Mon–Fri 8:00 AM – 4:30 PM &nbsp;·&nbsp; 2170 W State Road 434, Suite 190, Longwood, FL 32779</span></div></div>
  </div>
 </div></section>
 <section class="section soft related"><div class="wrap"><h2>Related {esc(cat_label.split(" ")[0])} services</h2><p class="lead center" style="margin-bottom:34px">More ways we care for you under one roof.</p>{related_cards(slug, base, cat)}</div></section>'''

@@ -507,3 +507,13 @@ footer .fabout{font-size:14px;line-height:1.7;max-width:330px}
 /* ===== v23: procedure photo on the LEFT (matches dad's original), text wraps right ===== */
 .proc-solo .proc-figure{float:left;margin:4px 42px 24px 0}
 @media(max-width:760px){.proc-solo .proc-figure{float:none;margin:0 0 26px}}
+
+/* ===== v24: nicer schedule note card ===== */
+.sched-note{display:flex;gap:18px;align-items:flex-start;margin-top:34px;padding:24px 28px;background:var(--soft);border:1px solid var(--line);border-radius:16px;border-left:none}
+.sched-note .sched-ic{flex:none;width:48px;height:48px;border-radius:13px;background:var(--rose);color:#fff;display:flex;align-items:center;justify-content:center}
+.sched-note .sched-ic svg{width:22px;height:22px}
+.sched-note .sched-txt{flex:1}
+.sched-note b{font-family:'Newsreader';font-size:20px;color:var(--head);display:block;margin-bottom:3px}
+.sched-note p{font-size:16px;color:var(--ink);margin:0}
+.sched-note a{color:var(--rose);font-weight:700;white-space:nowrap}
+.sched-note .sched-hrs{display:block;margin-top:9px;font-size:14px;color:var(--muted)}
