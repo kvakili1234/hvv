@@ -57,8 +57,8 @@ VASC=[("Carotid Duplex Imaging","carotid-duplex"),
  ("Ankle-Brachial Index Test","ankle-brachial-index"),
  ("Renal Ultrasound","renal-ultrasound"),
  ("Vascular Ultrasound","vascular-ultrasound")]
-INFO=[("Treatment Risks & Side Effects","treatment-risks"),
- ("Frequently Asked Questions","vein-faq")]
+INFO=[("Treatment Risks & Side Effects","treatment-risks")]
+FAQNAV=[("Frequently Asked Questions","vein-faq")]
 INTEG=[]  # dad's current site has no Integrative section (removed per request)
 RESOURCES=[("Patient Portal",PORTAL,"ext"),
  ("Patient Forms","patient-forms","int"),
@@ -68,13 +68,15 @@ RESOURCES=[("Patient Portal",PORTAL,"ext"),
  ("Cancellation Policy","cancellation-policy","int")]
 
 CAT={"heart":("Heart","heart.html"),"vein":("Vein","vein.html"),
-     "vascular":("Vascular","vascular.html"),"integrative":("Integrative Medicine","integrative.html")}
+     "vascular":("Vascular","vascular.html"),"integrative":("Integrative Medicine","integrative.html"),
+     "faq":("FAQ","p/vein-faq.html")}
 PROC_CAT={}
 for t,s in HEART: PROC_CAT[s]=("heart",t)
 for t,s in VEIN: PROC_CAT[s]=("vein",t)
 for t,s in VASC: PROC_CAT[s]=("vascular",t)
 for t,s in INFO: PROC_CAT[s]=("vein",t)
 for t,s in INTEG: PROC_CAT[s]=("integrative",t)
+for t,s in FAQNAV: PROC_CAT[s]=("faq",t)
 
 # ---------------- content cleaning ----------------
 FOOTER_HEADS={"Navigation","Contact Details","Quick Links"}
@@ -171,6 +173,7 @@ def nav(base):
   <div><span>Vein</span><div class="dd wide"><div class="dh" style="column-span:all">Vein Services</div>{vein_dd}</div></div>
   <div><span>Vascular</span><div class="dd"><div class="dh">Vascular Services</div>{vasc_dd}</div></div>
   <div><span>Patient Resources</span><div class="dd"><div class="dh">For Our Patients</div>{res_dd}</div></div>
+  <a class="lnk" href="{base}p/vein-faq.html">FAQ</a>
   <a class="lnk" href="{base}about.html">Dr. Vakili</a>
   <a class="lnk" href="{base}index.html#reviews">Reviews</a>
   <a class="lnk" href="{base}contact.html">Contact</a>
@@ -184,6 +187,7 @@ def nav(base):
  <div class="mn-sec"><div class="mn-head">Vein<span class="ar"></span></div><div class="mn-sub">{vein_dd}</div></div>
  <div class="mn-sec"><div class="mn-head">Vascular<span class="ar"></span></div><div class="mn-sub">{vasc_dd}</div></div>
  <div class="mn-sec"><div class="mn-head">Patient Resources<span class="ar"></span></div><div class="mn-sub">{res_dd}</div></div>
+ <a class="mn-link" href="{base}p/vein-faq.html">FAQ</a>
  <a class="mn-link" href="{base}about.html">Dr. Vakili</a>
  <a class="mn-link" href="{base}index.html#reviews">Reviews</a>
  <a class="mn-link" href="{base}contact.html">Contact</a>
@@ -716,8 +720,10 @@ def build_procedure(slug):
         content=render_content(slug, base, skip_imgs=False)
     # pull a preparation/risk callout if present
     canonical=f"p/{slug}.html"
-    body=f'''<header class="pagehead"><div class="wrap"><div class="crumb"><a href="{base}index.html">Home</a> › <a href="{base}{hub}">{esc(cat_label)}</a> › <span>{esc(disp)}</span></div>
- <span class="tag">{esc(cat_label)}</span><h1>{esc(title_full)}</h1></div></header>
+    crumb=(f'<a href="{base}index.html">Home</a> › <span>{esc(disp)}</span>' if cat=="faq"
+           else f'<a href="{base}index.html">Home</a> › <a href="{base}{hub}">{esc(cat_label)}</a> › <span>{esc(disp)}</span>')
+    body=f'''<header class="pagehead"><div class="wrap"><div class="crumb">{crumb}</div>
+ <span class="tag">{esc(cat_label)}</span><h1>{esc(title_full)}</h1></div></header>''' + f'''
 <section class="section"><div class="wrap">
  <div class="proc-body proc-solo">{fig}{content}
   <div class="callout"><b>Please note:</b> A physician referral is required for all diagnostic services.</div>
@@ -867,7 +873,7 @@ def main():
     pages["contact.html"]=build_contact()
     pages["book.html"]=build_book()
     # procedure pages
-    allproc=HEART+VEIN+VASC+INFO+INTEG
+    allproc=HEART+VEIN+VASC+INFO+INTEG+FAQNAV
     for t,s in allproc:
         pages[f"p/{s}.html"]=build_procedure(s)
     # resource detail pages
