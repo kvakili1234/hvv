@@ -41,22 +41,19 @@ HEART=[("Cardiac Catheterization","cardiac-catheterization"),
  ("Pacer & Defibrillator Integration","pacer-defibrillator"),
  ("Sleep Study","sleep-study"),
  ("Heart Attack Overview","heart-disease-overview")]
-VEIN=[("Radiofrequency Catheter Ablation","endovenous-catheter-occlusion"),
- ("VenaSeal Closure System","venaseal"),
- ("Sclerotherapy","sclerotherapy"),
- ("Ambulatory Phlebectomy","ambulatory-phlebectomy"),
+# Vein subsections — exactly as on dad's site (Endovenous Services menu)
+VEIN=[("Ambulatory Phlebectomy","ambulatory-phlebectomy"),
  ("Conservative Vein Treatments","conservative-vein-treatments"),
- ("Vein Mapping","vein-mapping"),
- ("Venous Reflux Disease","vein-disease"),
+ ("Radiofrequency Catheter Ablation","endovenous-catheter-occlusion"),
+ ("Sclerotherapy","sclerotherapy"),
  ("Chronic Venous Insufficiency Ultrasound","ultrasound-imaging"),
- ("Varicose Veins & Leg Swelling","varicose-veins-leg-swelling"),
- ("Vein Disease Overview","vein-disease-overview")]
-VASC=[("Carotid Duplex Imaging","carotid-duplex"),
- ("Abdominal Aortic Aneurysm Screening","aaa-screening"),
- ("Arterial Duplex of the Leg","arterial-duplex-leg"),
+ ("Venous Reflux Disease","vein-disease")]
+# Vascular subsections — exactly as on dad's site (Endovascular Services menu)
+VASC=[("Abdominal Aortic Aneurysm Screening","aaa-screening"),
  ("Ankle-Brachial Index Test","ankle-brachial-index"),
- ("Renal Ultrasound","renal-ultrasound"),
- ("Vascular Ultrasound","vascular-ultrasound")]
+ ("Arterial Duplex of the Leg","arterial-duplex-leg"),
+ ("Carotid Duplex Imaging","carotid-duplex"),
+ ("Renal Ultrasound","renal-ultrasound")]
 INFO=[("Treatment Risks & Side Effects","treatment-risks")]
 FAQNAV=[("Frequently Asked Questions","vein-faq")]
 INTEG=[]  # dad's current site has no Integrative section (removed per request)
